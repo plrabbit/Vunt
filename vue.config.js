@@ -20,7 +20,7 @@ module.exports = {
   devServer: {
     /* gzip(only development) */
     compress: true,
-    host: '127.0.0.1',
+    // host: '127.0.0.1',
     port: 8000
   },
   configureWebpack

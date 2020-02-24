@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Your Browser</title>
+    <style>* {font-family: 'Microsoft YaHei', 'Arial', sans-serif;}h1 {color: #F47378;}a span {color: #2c3e50;}</style>
+</head>
+<body>
+
+<script>
+  (function (d) {
+    // Get UI language
+    var l = window.navigator.language || window.navigator.userLanguage
+    var e = ['Your browser is out of date!', 'Click here', ' to update your browser for better experience!'],
+      z = ['您使用的浏览器已过时啦！', '点击这里', '升级您的浏览器，以获得更安全更高效的体验吧！']
+    function w(o) {
+      var a = /zh/.test(o)
+      var k = d.createElement('a'),
+        j = d.createElement('h1'),
+        h = d.createElement('span')
+      k.href = 'https://browsehappy.com/'
+      if(a) {
+        j.innerText = z[0]
+        k.innerText = z[1]
+        h.innerText = z[2]
+      } else {
+        j.innerText = e[0]
+        k.innerText = e[1]
+        h.innerText = e[2]
+      }
+      d.body.appendChild(j)
+      d.body.appendChild(k)
+      d.body.appendChild(h)
+    }
+    w(l)
+  })(window.document)
+</script>
+</body>
+</html>
