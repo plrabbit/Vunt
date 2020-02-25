@@ -10,11 +10,18 @@ const configureWebpack = function () {
   const baseConfig = {
     performance: {
       /* The way that shows hints about building files sizes */
-      hints: 'warning'
+      hints: false
     },
 
     /* CDN resources */
-    externals: isProduction ? sourcesCDN.externals : {}
+    externals: isProduction ? sourcesCDN.externals : {},
+
+    resolve:{
+      // other configs
+      alias:{
+        '@ant-design/icons': 'purched-antd-icons'
+      }
+    }
   }
 
   return Object.assign({}, baseConfig, {
