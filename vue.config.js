@@ -1,11 +1,10 @@
 const modifyVars = require('./config/modifyVars.theme')
-const configureWebpack = require('./config/configure-webpack')
 
 module.exports = {
   css: {
     loaderOptions: {
       less: {
-        /* Customize themes */
+        /* Customize themes, modify it in /config/modifyVars.theme.js */
         modifyVars,
         /* Allow scripts to import *.less */
         javascriptEnabled: true
@@ -23,5 +22,6 @@ module.exports = {
     // host: '127.0.0.1',
     port: 8000
   },
-  configureWebpack
+  configureWebpack: require('./config/vue.webpack.config').configureWebpack,
+  chainWebpack: require('./config/vue.webpack.config').chainWebpack
 }
