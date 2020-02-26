@@ -1,6 +1,8 @@
 const modifyVars = require('./config/modifyVars.theme')
 
 module.exports = {
+  publicPath: '/',
+  outputDir: 'dist',
   css: {
     loaderOptions: {
       less: {
@@ -22,6 +24,8 @@ module.exports = {
     // host: '127.0.0.1',
     port: 8000
   },
+  /* Compile dependencies in node_modules */
+  transpileDependencies: [],
   configureWebpack: require('./config/vue.webpack.config').configureWebpack,
   chainWebpack: require('./config/vue.webpack.config').chainWebpack
 }

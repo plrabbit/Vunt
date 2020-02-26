@@ -4,7 +4,7 @@ const HTMLInjectConfig = require('./webpack-plugins/html-inject-config')
 
 const plugins = [
   /* Inject global static variables to index.html */
-  new HTMLInjectConfig('/')
+  new HTMLInjectConfig(require('../vue.config').publicPath)
 ]
 
 if (process.env.NODE_ENV === 'production') {

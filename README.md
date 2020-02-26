@@ -1,7 +1,127 @@
 # Vunt
 
-A light web app framework built with Vue-CLI 4 + Ant Design Vue
+A light web app framework built with [Vue](https://github.com/vuejs/vue) + [Ant Design Vue](https://github.com/vueComponent/ant-design-vue)
+
+Easier configuration for developers.
 
 > Yea! It is not finish yet. :-)
 
+## Get started
 
+1. Initially, clone this repository.
+
+2. Rename the project, including **project folder name**, **package.json**.(It will using commander in the future)
+
+3. Installing dependencies by running ```npm install```
+
+## Configurations
+
+All the configuration files are stored in the **config folder**. You may find it in the root directory.
+
+### Basic(vue.config.js)
+
+Modifying the basic configuration, just opening the ```vue.config.js``` in the root directory, it includes some frequently-used API.
+
+> vue.config.js API schema is same to [Vue-CLI](https://cli.vuejs.org/config/#vue-config-js)
+
+```
+  publicPath: '/',
+  outputDir: 'dist',
+  css: {
+    loaderOptions: {
+      less: {
+        /* Customize themes, modify it in /config/modifyVars.theme.js */
+        modifyVars,
+        /* Allow scripts to import *.less */
+        javascriptEnabled: true
+      }
+    }
+  },
+
+  /* generate sourceMap or not */
+  productionSourceMap: process.env.NODE_ENV === 'development',
+
+  /* To make lint errors show up in the browser overlay. */
+  lintOnSave: 'error',
+
+  /* webpack-dev-server configuration */
+  devServer: {
+    /* gzip(only development) */
+    compress: true,
+    // host: '127.0.0.1',
+    port: 8000
+  },
+
+  /* Compile dependencies in node_modules */
+  transpileDependencies: []
+
+  ...other configuration
+```
+
+### CDN
+
+Open the ```cdn.config.js```, modify the variable "useCDN", decide if you want to request assets from CDN.
+
+> Please note that "useCDN" is false by default.
+
+```
+const useCDN = true
+```
+
+Then simply add webpack externals and cdn address for assets below.
+```
+  /* webpack externals */
+  externals: {
+    vue: 'Vue',
+    'vue-router': 'VueRouter',
+    vuex: 'Vuex',
+    axios: 'axios'
+  },
+
+  /* css assets on CDN */
+  css: [],
+
+  /* js assets on CDN */
+  js: [
+    'https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js',
+    'https://cdn.jsdelivr.net/npm/vue-router@3.1.5/dist/vue-router.min.js',
+    'https://cdn.jsdelivr.net/npm/vuex@3.1.2/dist/vuex.min.js',
+    'https://cdn.jsdelivr.net/npm/axios@0.19.2/index.min.js'
+  ]
+```
+
+### Theme
+
+Open the ```modifyVars.theme.js```, you can see the frequently-used variables in [Ant Design Vue](https://github.com/vueComponent/ant-design-vue).
+
+Just modify them simply.
+
+```
+  '@primary-color': '#1890ff',
+  '@link-color': '#1890ff',
+  '@success-color': '#52c41a',
+  '@warning-color': '#faad14',
+  '@error-color': '#f5222d',
+  '@font-size-base': '14px',
+  '@heading-color': 'rgba(0, 0, 0, .85)',
+  '@text-color': 'rgba(0, 0, 0, .65)',
+  '@text-color-secondary ': 'rgba(0, 0, 0, .45)',
+  '@disabled-color ': 'rgba(0, 0, 0, .25)',
+  '@border-radius-base': '4px',
+  '@border-color-base': '#d9d9d9',
+  '@box-shadow-base': '0 2px 8px rgba(0, 0, 0, .15)'
+```
+
+In addition, all less variables could be found in [Default Variables](https://github.com/vueComponent/ant-design-vue/blob/master/components/style/themes/default.less)
+
+> Please note that modifyVars.theme.js is a **js file**, not a less file!!!
+
+### Webpack Configuration
+
+> The ```configureWebpack``` and ```chainWebpack``` attr. are separated from vue.config.js, the main thought is to distinguish webpack from other configurations.
+
+You can find ```configureWebpack``` and ```chainWebpack``` in ```vue.webpack.config.js```
+
+## License
+
+[MIT license](./LICENSE).

@@ -16,6 +16,7 @@ module.exports = {
 
 /**
  * Default Values
+ * All less variables: https://github.com/vueComponent/ant-design-vue/blob/master/components/style/themes/default.less
 
  '@primary-color': '#1890ff',
  '@link-color': '#1890ff',
