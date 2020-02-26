@@ -10,7 +10,7 @@ Easier configuration for developers.
 
 1. Initially, clone this repository.
 
-2. Rename the project, including **project folder name**, **package.json**.(It will using commander in the future)
+2. Rename the project, including **project folder name**, **package.json**.(It will use commander in the future)
 
 3. Installing dependencies by running ```npm install```
 
