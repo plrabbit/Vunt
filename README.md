@@ -1,4 +1,4 @@
-# Vunt
+# ???
 
 A light web app framework built with [Vue](https://github.com/vuejs/vue) + [Ant Design Vue](https://github.com/vueComponent/ant-design-vue)
 
@@ -8,11 +8,23 @@ Easier configuration for developers.
 
 ## Get started
 
-1. Initially, clone this repository.
+Initially, clone this repository.
+```
+$ git clone --depth 1 https://github.com/plrabbit/vunt.git project-name
+```
 
-2. Rename the project, including **project folder name**, **package.json**.(It will use commander in the future)
+Then modify the project name in **package.json**.(It will use commander in the future)
+```
+{
+  "name": "project-name"
+  ...
+}
+```
 
-3. Installing dependencies by running ```npm install```
+Finally, install dependencies.
+```
+$ yarn install
+```
 
 ## Configurations
 
