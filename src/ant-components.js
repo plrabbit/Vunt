@@ -1,15 +1,25 @@
 import Vue from 'vue'
 
+/* Import as we need. */
 import {
   Button,
+
   message,
+  notification,
   Modal
 } from 'ant-design-vue'
 
-Vue.use(Button)
+/* message, notification, Modal are not required to Vue.use() */
+[
+  Button
+].forEach(n => {
+  Vue.use(n)
+})
 
 Vue.prototype.$message = message;
-// Vue.prototype.$notification = notification;
+
+Vue.prototype.$notification = notification;
+
 Vue.prototype.$info = Modal.info;
 Vue.prototype.$success = Modal.success;
 Vue.prototype.$error = Modal.error;
