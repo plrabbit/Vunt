@@ -10,11 +10,10 @@ Easier project customization for developers.
 
 > ```pillar-cli``` is a scaffolding tool which helps you create projects with ```Vunt```.
 
+Install ```pillar-cli``` globally and run create command.
 ```
-# Install pillar-cli globally
 npm i -g @plrabbit/cli
 
-# Run create command 
 pillar create project-name
 ```
 
@@ -45,6 +44,7 @@ Then modify the project name in ```package.json```.
 Finally, install dependencies and run ```serve``` script.
 ```
 npm install
+
 npm run serve
 ```
 
@@ -60,14 +60,14 @@ Modifying the basic configuration, just opening the ```vue.config.js``` in the r
 
 ```
 publicPath: '/',
-        outputDir: 'dist',
-        css: {
+  outputDir: 'dist',
+  css: {
   loaderOptions: {
     less: {
       /* Customize themes, modify it in /config/modifyVars.theme.js */
       modifyVars,
-              /* Allow scripts to import *.less */
-              javascriptEnabled: true
+      /* Allow scripts to import *.less */
+      javascriptEnabled: true
     }
   }
 },
@@ -75,15 +75,15 @@ publicPath: '/',
 /* generate sourceMap or not */
 productionSourceMap: process.env.NODE_ENV === 'development',
 
-        /* To make lint errors show up in the browser overlay. */
-        lintOnSave: 'error',
+/* To make lint errors show up in the browser overlay. */
+lintOnSave: 'error', 
 
-        /* webpack-dev-server configuration */
-        devServer: {
+/* webpack-dev-server configuration */
+devServer: {
   /* gzip(only development) */
   compress: true,
-          // host: '127.0.0.1',
-          port: 8000
+  // host: '127.0.0.1',
+  port: 8000
 },
 
 /* Compile dependencies in node_modules */
@@ -107,16 +107,16 @@ Then simply add webpack externals and cdn address for assets below.
 /* webpack externals */
 externals: {
   vue: 'Vue',
-          'vue-router': 'VueRouter',
-          vuex: 'Vuex',
-          axios: 'axios'
+  'vue-router': 'VueRouter',
+  vuex: 'Vuex',
+  axios: 'axios'
 },
 
 /* css assets on CDN */
 css: [],
 
-        /* js assets on CDN */
-        js: [
+/* js assets on CDN */
+js: [
   'https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js',
   'https://cdn.jsdelivr.net/npm/vue-router@3.1.5/dist/vue-router.min.js',
   'https://cdn.jsdelivr.net/npm/vuex@3.1.2/dist/vuex.min.js',
