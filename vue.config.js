@@ -19,6 +19,7 @@ module.exports = {
   lintOnSave: 'error',
   /* webpack-dev-server configuration */
   devServer: {
+    watchContentBase: true,
     /* gzip(only development) */
     compress: true,
     // host: '127.0.0.1',

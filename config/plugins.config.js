@@ -1,10 +1,14 @@
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const HTMLInjectConfig = require('./webpack-plugins/html-inject-config')
+const HtmlInjectIconfont = require('./webpack-plugins/html-inject-iconfont')
 
 const plugins = [
   /* Inject global static variables to index.html */
-  new HTMLInjectConfig(require('../vue.config').publicPath)
+  new HTMLInjectConfig(),
+
+  /* Inject *.css from /iconfont */
+  new HtmlInjectIconfont()
 ]
 
 if (process.env.NODE_ENV === 'production') {
