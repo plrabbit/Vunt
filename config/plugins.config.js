@@ -1,5 +1,6 @@
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+
 const HTMLInjectConfig = require('./webpack-plugins/html-inject-config')
 const HtmlInjectIconfont = require('./webpack-plugins/html-inject-iconfont')
 
@@ -7,7 +8,8 @@ const plugins = [
   /* Inject global static variables to index.html */
   new HTMLInjectConfig(),
 
-  /* Inject *.css from /iconfont */
+  /* Inject *.css from public/assets/icons */
+  // new HtmlInjectIconfont({ iconsFile: 'assets/icons/iconfont.css' }),
   new HtmlInjectIconfont()
 ]
 
