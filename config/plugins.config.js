@@ -9,8 +9,7 @@ const plugins = [
   new HTMLInjectConfig(),
 
   /* Inject *.css from public/assets/icons */
-  // new HtmlInjectIconfont({ iconsFile: 'assets/icons/iconfont.css' }),
-  new HtmlInjectIconfont()
+  new HtmlInjectIconfont({ iconsFile: 'assets/icons/iconfont.css' }),
 ]
 
 if (process.env.NODE_ENV === 'production') {

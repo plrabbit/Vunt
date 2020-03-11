@@ -20,13 +20,13 @@ pillar create project-name
 Or, using ```npx```:
 
 ```
-npx @plrabbit/cli create project-name 
+npx @plrabbit/cli create project-name
 ```
 > Please note that ```npx``` requires ```npm version >= 5.2.0```, and may cause some errors on account of the space in your system username.
 
 Then just follow the steps in the command line.
 
-### General 
+### General
 
 Initially, clone this repository.
 ```
@@ -146,8 +146,8 @@ module.exports = {
   '@font-size-base': '14px',
   '@heading-color': 'rgba(0, 0, 0, .85)',
   '@text-color': 'rgba(0, 0, 0, .65)',
-  '@text-color-secondary ': 'rgba(0, 0, 0, .45)',
-  '@disabled-color ': 'rgba(0, 0, 0, .25)',
+  '@text-color-secondary': 'rgba(0, 0, 0, .45)',
+  '@disabled-color': 'rgba(0, 0, 0, .25)',
   '@border-radius-base': '4px',
   '@border-color-base': '#d9d9d9',
   '@box-shadow-base': '0 2px 8px rgba(0, 0, 0, .15)'
@@ -157,6 +157,28 @@ module.exports = {
 In addition, all less variables could be found in [Default Variables](https://github.com/vueComponent/ant-design-vue/blob/master/components/style/themes/default.less)
 
 > Please note that modifyVars.theme.js is a **js file**, not a less file!!!
+
+### Iconfont (Testing)
+
+```Vunt``` can help you inject iconfont conveniently. Please follow the steps below:
+
+First, copy your iconfont files into ```public/assets/icons``` (As long as it's in ```public``` folder), including the css file. Storing them into the ```public``` folder so that you can replace the icons without rebuilding.
+
+> Please note that adding a new set of iconfont are required to rebuild.
+
+Then specify the ```css``` file(s) in ```config/plugins.config.js```.
+
+```js
+// config/plugins.config.js
+
+// The paths are relative to 'publicPath' configured in vue.config.js
+new HtmlInjectIconfont({ iconsFile: 'assets/icons/iconfont.css' })
+new HtmlInjectIconfont({ iconsFile: ['assets/icons/iconfont.css', 'assets/icons/xxx.css'] })
+```
+
+Rerun ```npm run serve```.
+
+> In addition, changing the iconfont css files configured in ```config/plugins.config.js``` can trigger a reload automatically.
 
 ### Webpack Configuration
 

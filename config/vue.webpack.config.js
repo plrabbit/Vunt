@@ -14,7 +14,7 @@ const configureWebpack = function () {
     },
 
     /* CDN resources */
-    externals: isProduction ? sourcesCDN.externals : {},
+    externals: isProduction ? (sourcesCDN.useCDN ? sourcesCDN.externals : {}) : {},
 
     resolve:{
       /* Decrease the svg icons bundle size

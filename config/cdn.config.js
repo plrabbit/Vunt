@@ -3,7 +3,7 @@
  */
 
 /* Decide if you want to use CDN */
-const useCDN = false
+const useCDN = true
 
 const sourcesCDN = {
   useCDN,
@@ -23,11 +23,6 @@ const sourcesCDN = {
     'https://cdn.jsdelivr.net/npm/vuex@3.1.2/dist/vuex.min.js',
     'https://cdn.jsdelivr.net/npm/axios@0.19.2/index.min.js'
   ]
-}
-
-if(!useCDN) {
-  /* Not using CDN resources */
-  sourcesCDN.externals = {}
 }
 
 module.exports = sourcesCDN
