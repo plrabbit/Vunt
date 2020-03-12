@@ -2,18 +2,19 @@ const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const HTMLInjectConfig = require('./webpack-plugins/html-inject-config')
-const HtmlInjectIconfont = require('./webpack-plugins/html-inject-iconfont')
+// const HtmlInjectIconfont = require('./webpack-plugins/html-inject-iconfont')
+
+const { publicPath } = require('../vue.config')
 
 const plugins = [
   /* Inject global static variables to index.html */
-  new HTMLInjectConfig(),
+  new HTMLInjectConfig(publicPath)
 
   /* Inject *.css from public/assets/icons */
-  new HtmlInjectIconfont({ iconsFile: 'assets/icons/iconfont.css' }),
+  // new HtmlInjectIconfont(['assets/icons/iconfont.css'])
 ]
 
 if (process.env.NODE_ENV === 'production') {
-
   plugins.push(
     /* An alternative of AutoDll Plugin */
     new HardSourceWebpackPlugin()

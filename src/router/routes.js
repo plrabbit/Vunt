@@ -1,14 +1,14 @@
 const _import = file => import('@/views/' + file + '.vue')
 
-export default [
+module.exports = [
   {
     path: '/',
-    component: () => _import('index'),
-    children: [
-      {
-        path: '/about',
-        component: () => _import('about')
-      }
-    ]
+    name: 'Home',
+    component: () => _import('Home')
+  },
+  {
+    path: '/about',
+    name: 'About',
+    component: () => _import('About')
   }
 ]

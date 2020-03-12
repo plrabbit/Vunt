@@ -16,10 +16,10 @@ const configureWebpack = function () {
     /* CDN resources */
     externals: isProduction ? (sourcesCDN.useCDN ? sourcesCDN.externals : {}) : {},
 
-    resolve:{
+    resolve: {
       /* Decrease the svg icons bundle size
          In the future, ant design official will provide new API to allow us importing icons as our need  */
-      alias:{
+      alias: {
         '@ant-design/icons': 'purched-antd-icons'
       }
     }
@@ -33,7 +33,7 @@ const configureWebpack = function () {
 /**
  * chainWebpack in vue.config.js
  */
-const chainWebpack = function(config) {
+const chainWebpack = function (config) {
   if (isProduction) {
     sourcesCDN.useCDN && config.plugin('html').tap(args => {
       args[0].cdn = sourcesCDN
@@ -42,4 +42,7 @@ const chainWebpack = function(config) {
   }
 }
 
-module.exports = { configureWebpack, chainWebpack }
+module.exports = {
+  configureWebpack,
+  chainWebpack
+}

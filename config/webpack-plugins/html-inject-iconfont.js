@@ -11,17 +11,15 @@ class HtmlInjectIconfont {
   // TODO 1. RegExp for iconsFiles => absPath
   // TODO 2. Remove the function readdir
   // TODO 3. Markdown!!
-  constructor({iconsPath, iconsFile} = {}) {
-    iconsPath = iconsPath || 'assets/icons'
-    iconsFile = iconsFile || 'all'
-
-    this.iconsPath = iconsPath
-    this.absIconsPath = path.resolve(process.cwd(), path.resolve('public', iconsPath))
-    this.iconsFile = iconsFile
-    this.iconfontFiles = []
+  constructor (cssFiles = [], publicPath = '/') {
+    publicPath = publicPath === '/' ? './' : publicPath
+    this.publicAbsPath = path.resolve(process.cwd(), path.resolve('public', publicPath))
+    this.cssFiles = cssFiles
+    console.log(this.publicAbsPath)
+    return
   }
 
-  apply(compiler) {
+  apply (compiler) {
     compiler.hooks.compilation.tap('HtmlInjectIconfont', compilation => {
       compilation.hooks.htmlWebpackPluginBeforeHtmlProcessing.tapAsync('HtmlInjectIconfont', (data, callback) => {
         const { iconfontFiles } = this
@@ -35,35 +33,40 @@ class HtmlInjectIconfont {
         this.iconfontFiles = iconfontFiles
         if (Array.isArray(compilation.fileDependencies)) {
           iconfontFiles.map(function (file) {
-            compilation.fileDependencies.push(path.resolve(absIconsPath, file.match(/(\w+\.css)$/)[1]))
+            // compilation.fileDependencies.push(path.resolve(absIconsPath, file.match(/(\w+\.css)$/)[1]))
           })
         } else {
           iconfontFiles.map(function (file) {
-            compilation.fileDependencies.add(path.resolve(absIconsPath, file.match(/(\w+\.css)$/)[1]))
+            // compilation.fileDependencies.add(path.resolve(absIconsPath, file.match(/(\w+\.css)$/)[1]))
           })
         }
+        // console.log(`\n${absIconsPath}`)
+        // console.log(`\n` + path.resolve(absIconsPath, `*.css`))
+        compilation.fileDependencies.add(path.resolve(absIconsPath, '*.css'))
         callback()
       }).catch(err => {
         console.log(`\n${err}`)
         process.exit(1)
       })
-
     })
   }
 
-  readdir(readPath) {
+  readdir (readPath) {
     return new Promise((resolve, reject) => {
       fs.readdir(readPath, function (err, files) {
-        if (err) reject(err)
-        else resolve(files)
+        if (err) {
+          reject(err)
+        } else {
+          resolve(files)
+        }
       })
     })
   }
 
-  async getIconfont() {
+  async getIconfont () {
     const { iconsPath, absIconsPath, iconsFile } = this
-    if(Array.isArray(iconsFile)) return iconsFile
-    if(iconsFile !== 'all') {
+    if (Array.isArray(iconsFile)) return iconsFile
+    if (iconsFile !== 'all') {
       return [iconsFile]
     } else {
       const iconfontFiles = []
@@ -75,7 +78,6 @@ class HtmlInjectIconfont {
       })
       return iconfontFiles
     }
-
   }
 }
 

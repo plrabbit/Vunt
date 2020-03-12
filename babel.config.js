@@ -4,11 +4,11 @@ module.exports = {
   ],
   plugins: [
     [
-      "import",
+      'import',
       {
-        "libraryName": "ant-design-vue",
-        "libraryDirectory": "es",
-        "style": true
+        libraryName: 'ant-design-vue',
+        libraryDirectory: 'es',
+        style: true
       }
     ]
   ]
