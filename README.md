@@ -8,7 +8,7 @@ Easier project customization for developers.
 
 ### Pillar-CLI
 
-> ```pillar-cli``` is a scaffolding tool which helps you create projects with ```Vunt```.
+> ```pillar-cli``` is a scaffolding tool which helps you create projects with Vunt.
 
 Install ```pillar-cli``` globally and run create command.
 ```
@@ -158,25 +158,36 @@ In addition, all less variables could be found in [Default Variables](https://gi
 
 > Please note that modifyVars.theme.js is a **js file**, not a less file!!!
 
-### Iconfont (Testing)
+### Iconfont
 
-```Vunt``` can help you inject iconfont conveniently. Please follow the steps below:
+Vunt can help you inject [Iconfont](https://www.iconfont.cn/) conveniently.
 
-First, copy your iconfont files into ```public/assets/icons``` (As long as it's in ```public``` folder), including the css file. Storing them into the ```public``` folder so that you can replace the icons without rebuilding.
+> Vunt supports any icons with "Font Class", not only icons from [Iconfont](https://www.iconfont.cn/).
 
-> Please note that adding a new set of iconfont are required to rebuild.
+Copy your iconfont files into ```public/assets/icons```, including the css file. Storing them into the ```public``` folder so that you can replace the icons without rebuilding, unless adding a new set of iconfont.
 
-Then specify the ```css``` file(s) in ```config/plugins.config.js```.
+That will be like this:
+
+    public
+    ├── assets
+        ├── icons
+            ├── iconfont.css
+            ├── iconfont.eot
+            ├── iconfont.svg
+            ├── iconfont.ttf
+            ├── iconfont.woff
+            ├── iconfont.woff2
+
+Rerun ```npm run serve```.
+
+Generally, only ```assets/icons/iconfont.css``` is specified. You can specify the other css file(s) in ```config/plugins.config.js```.
 
 ```js
 // config/plugins.config.js
 
 // The paths are relative to 'publicPath' configured in vue.config.js
-new HtmlInjectIconfont({ iconsFile: 'assets/icons/iconfont.css' })
-new HtmlInjectIconfont({ iconsFile: ['assets/icons/iconfont.css', 'assets/icons/xxx.css'] })
+new HtmlInjectIconfont(['assets/icons/iconfont.css', 'assets/icons/others/xxx.css'], publicPath)
 ```
-
-Rerun ```npm run serve```.
 
 > In addition, changing the iconfont css files configured in ```config/plugins.config.js``` can trigger a reload automatically.
 
