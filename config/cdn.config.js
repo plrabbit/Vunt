@@ -3,7 +3,7 @@
  */
 
 /* Decide if you want to use CDN */
-const useCDN = true
+const useCDN = false
 
 const sourcesCDN = {
   useCDN,

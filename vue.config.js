@@ -1,4 +1,4 @@
-const modifyVars = require('./config/modifyVars.theme')
+const modifyVars = require('./config/theme.config')
 
 module.exports = {
   publicPath: '/',
@@ -6,7 +6,7 @@ module.exports = {
   css: {
     loaderOptions: {
       less: {
-        /* Customize themes, modify it in /config/modifyVars.theme.js */
+        /* Customize themes, modify it in /config/theme.config.js */
         modifyVars,
         /* Allow scripts to import *.less */
         javascriptEnabled: true

@@ -67,7 +67,7 @@ module.exports = {
   css: {
     loaderOptions: {
       less: {
-        /* Customize themes, modify it in /config/modifyVars.theme.js */
+        /* Customize themes, modify it in /config/theme.config.js */
         modifyVars,
         /* Allow scripts to import *.less */
         javascriptEnabled: true
@@ -92,6 +92,58 @@ module.exports = {
   /* Compile dependencies in node_modules */
   transpileDependencies: []
 }
+```
+
+### Importing Ant Design Components
+
+> Vunt has install ```babel-plugin-import``` to import AntD components as you need. It helps us to decrease webpack bundle size.
+
+But the bad news is, every time you using a new component, you need to modify ```src/ant-components.js```, like this:
+
+```js
+/* Oh! I want to use a-button! */
+import {
+  // ...
+  Button
+} from 'ant-design-vue'
+
+/* Add Button here for Vue.use() */
+/* message, notification, Modal are not required to Vue.use() */
+[
+  // ...
+  Button
+].forEach(n => {
+  Vue.use(n)
+})
+```
+
+It is recommended that import frequently-used AntD components in ```src/ant-components.js```, and import the particular AntD components in your Vue components.
+
+#### Importing All AntD components
+
+Seems inconvenient? If you don't need to consider bundle size, you can import all AntD components in one time.
+
+First, you need to REMOVE the ```babel-plugin-import``` stated in ```babel.config.js```
+```js
+plugins: [
+  // [
+  //   'import',
+  //   {
+  //     libraryName: 'ant-design-vue',
+  //     libraryDirectory: 'es',
+  //     style: true
+  //   }
+  // ]
+]
+```
+
+Then modify the ```src/main.js```.
+
+```js
+// import './ant-components'
+import AntD from 'ant-design-vue'
+import 'ant-design-vue/dist/antd.less' // Must be less, otherwise the theme won't work.
+Vue.use(AntD)
 ```
 
 ### CDN
@@ -130,12 +182,12 @@ const sourcesCDN = {
 
 ### Theme
 
-Open the ```modifyVars.theme.js```, you can see the frequently-used variables in [Ant Design Vue](https://github.com/vueComponent/ant-design-vue).
+Open the ```theme.config.js```, you can see the frequently-used variables in [Ant Design Vue](https://github.com/vueComponent/ant-design-vue).
 
 Just modify them simply.
 
 ```js
-// config/modifyVars.theme.js
+// config/theme.config.js
 
 module.exports = {
   '@primary-color': '#1890ff',
@@ -156,7 +208,7 @@ module.exports = {
 
 In addition, all less variables could be found in [Default Variables](https://github.com/vueComponent/ant-design-vue/blob/master/components/style/themes/default.less)
 
-> Please note that modifyVars.theme.js is a **js file**, not a less file!!!
+> Please note that theme.config.js is a **js file**, not a less file!!!
 
 ### Iconfont
 
