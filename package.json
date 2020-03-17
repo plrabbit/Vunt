@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "scripts": {
     "serve": "vue-cli-service serve --open",
-    "build": "vue-cli-service build",
+    "build": "node coder/index.js && vue-cli-service build",
+    "coder": "node coder/index.js",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },
@@ -35,6 +36,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^6.1.2",
     "hard-source-webpack-plugin": "^0.13.1",
+    "js-beautify": "^1.10.3",
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
     "purched-antd-icons": "^0.2.2",

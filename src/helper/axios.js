@@ -12,6 +12,7 @@ const config = {
 }
 
 axios.defaults.transformRequest = [function (data, config) {
+  console.log(config)
   const contentType = config['Content-Type']
   if (!contentType) return Qs.stringify(data)
   if (/application\/json/.test(contentType.toLowerCase())) {

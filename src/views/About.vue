@@ -6,12 +6,13 @@
 </template>
 
 <script>
-import axios from '@/utils/axios'
+import { getArticles } from '@/base/api/base-features'
 
 export default {
   mounted () {
-    axios('https://www.plrabbit.com/home/api.php?a=list&m=article', {
-      methods: 'get'
+    getArticles({
+      m: 'article',
+      a: 'list'
     }).then(res => {
       console.log(res)
     })
