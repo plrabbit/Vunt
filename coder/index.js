@@ -31,7 +31,7 @@ function beautifyJs (content) {
   })
 }
 
-console.log('\nGenerating Codes...\n')
+console.log('\nGenerating Codes...')
 const apiCollection = []
 
 /* Read templates */
