@@ -1,3 +1,7 @@
+const fs = require('fs')
+const path = require('path')
+const beautify = require('js-beautify').js_beautify
+
 const styles = {
   bold: ['\x1B[1m', '\x1B[22m'],
   italic: ['\x1B[3m', '\x1B[23m'],
@@ -32,4 +36,27 @@ exports.log = function (key, obj) {
   } else {
     console.log(styles[key][0] + '%s' + styles[key][1], obj)
   }
+}
+
+exports.writeFile = function (filepath, filename, content) {
+  if (!fs.existsSync(filepath)) {
+    fs.mkdirSync(filepath, { recursive: true })
+  }
+  fs.writeFileSync(path.resolve(filepath, `${filename}`), content, { encoding: 'utf8' })
+}
+
+exports.beautifyJs = function (content) {
+  content = content.replace(/(\r\n|\n)\s*/g, '\n')
+    .replace(/\(\n/g, '(')
+    .replace(/,\n/g, ',')
+    .replace(/\/\*\*/g, '\n/**')
+    .replace(/\n\/\//g, '\n\n//')
+
+  return beautify(content, {
+    indent_with_tabs: false,
+    indent_size: 2,
+    jslint_happy: true,
+    end_with_newline: true,
+    space_after_anon_function: true
+  })
 }
