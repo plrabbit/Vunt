@@ -26,13 +26,22 @@ import { <%= PREFIX_HOST_NAME %> } from '@/config'
 <% } %>
 export const <%= api.name %> = function (data<%if (hasPathParams) { %>, pathParams<% } %>) {
   <%if (hasPathParams) { %>const { <%= arr.join(', ') %> } = pathParams<% } %>
-  return axios(<%= PREFIX_HOST_NAME %> + \`<%= arrangedPath %>\`, {
+  return axios({
     <% const method = api.options.method.toLowerCase() %>
     <% if ( method === 'get' || method === 'delete' ) { %>
-      params: data
+      params: data<%if(api.options){%>,<%}%>
     <% } else { %>
-      data
+      data<%if(api.options){%>,<%}%>
     <% } %>
+    <%if(api.options){%>
+      <% for (let [key, value] of Object.entries(api.options)) { %>
+        <% if (['params', 'data', 'url'].includes(key)) { continue %>
+        <% } else { %>
+          <%=key%>: <%if(typeof value=='string'){%> '<%=value%>' <%}else{%> <%=JSON.stringify(value).replace(/"(\\w+)":/g, '$1:').replace(/"/g, '\\'')%> <%}%>,
+        <%}%>
+      <%}%>
+    <%}%>
+    url: <%= PREFIX_HOST_NAME %> + \`<%= arrangedPath %>\`
   })
 }
 <% }) %>

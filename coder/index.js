@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+// const { execSync } = require('child_process')
 const { log, writeFile, beautifyJs } = require('./utils')
 
 const apiRender = require('./templates/api')
@@ -30,5 +31,7 @@ apiCollection.forEach(n => {
   /* Write Mixins */
   // TODO
 })
+
+// execSync('eslint src/base/** --fix')
 
 log('green', 'Generate Codes Completed.\n')
