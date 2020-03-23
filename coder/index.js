@@ -4,6 +4,7 @@ const path = require('path')
 const { log, writeFile, beautifyJs } = require('./utils')
 
 const apiRender = require('./templates/api')
+const mixinRender = require('./templates/mixin')
 
 /* API_HOST states in public/config.js */
 const PREFIX_HOST_NAME = 'API_HOST'
@@ -29,7 +30,10 @@ apiCollection.forEach(n => {
   })))
 
   /* Write Mixins */
-  // TODO
+  writeFile(path.resolve(__dirname, `..${WRITE_PATH}/mixin`), n.filename, beautifyJs(mixinRender({
+    PREFIX_HOST_NAME,
+    apiList: n.apiList
+  })))
 })
 
 // execSync('eslint src/base/** --fix')

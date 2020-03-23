@@ -6,6 +6,8 @@ import axios from '@/helper/axios'
 import { <%= PREFIX_HOST_NAME %> } from '@/config'
 
 <% const methodsArr = ['get', 'post', 'put', 'patch', 'delete']%>
+export default {
+  methods: {
 <% _.each(apiList, function (api) { %>
 /** <%= api.desc %> */
 <% const reg = /\\/(?::(\\w+))(?=\\/|$)|\\/(?:{(\\w+)})(?=\\/|$)/g %>
@@ -28,7 +30,7 @@ import { <%= PREFIX_HOST_NAME %> } from '@/config'
 <%   throw new Error('Duplicated params in \\'' + api.name + '\\' function.') %>
 <% } %>
 
-export const <%= api.name %> = function (<%if (api.rest) { %>method, <% } %>data<%if (hasPathParams) { %>, pathParams<% } %>) {
+<%= api.name %>: function (<%if (api.rest) { %>method, <% } %>data<%if (hasPathParams) { %>, pathParams<% } %>) {
   <%if (hasPathParams) { %>const { <%= arr.join(', ') %> } = pathParams<% } %>
   return axios({
     <% const method = api.options.method.toLowerCase() %>
@@ -53,6 +55,8 @@ export const <%= api.name %> = function (<%if (api.rest) { %>method, <% } %>data
   })
 }
 <% }) %>
+  }
+}
 `)
 
 /**

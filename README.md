@@ -249,6 +249,60 @@ new HtmlInjectIconfont(['assets/icons/iconfont.css', 'assets/icons/others/xxx.cs
 
 You can find ```configureWebpack``` and ```chainWebpack``` in ```vue.webpack.config.js```
 
+### API Management
+
+> Vunt offers a script calls ```coder``` to generate APIs, including API request functions(with axios), mixins for Vue components. Also, RESTful APIs is supported.
+
+#### Generating APIs
+
+Before running ```npm run coder```, we need to set up the API schemas in ```code/api-schemas```.
+
+First, creat a new JS file in ```code/api-schemas``` named with a module name, such as ```base-feature.js```(which includes interface like login or logout).
+
+The JS file should export an Array, with your API object in it, for example:
+
+```js
+/**
+ * @type {array}
+ * @property {string}   path      API path
+ * @property {string}   desc      API description
+ * @property {string}   name      Customize the function name
+ * @property {boolean}  rest      Decide if generate RESTful API
+ * @property {object}   options   Options for axios
+ */
+module.exports = [
+  {
+    path: '/home/blogArticles', // Will be generated: API_HOST + path
+    desc: 'Get all blog articles',
+    name: 'getArticles', // Customize the function name
+    rest: false,
+    options: {
+      method: 'get'
+    }
+  }
+]
+```
+
+> The whole path will be ```API_HOST + path```, ```API_HOST``` is a global variable like ```baseUrl``` in axios, you can find it in ```public/config.js```.
+
+Then, run ```npm run coder```, and find the generated API files in ```src/base/api``` and ```src/base/mixin```.
+
+Every function returns a promise from axios, just simply import them in your modules!
+
+```js
+// api
+import { getArticles } from '@/base/api/base-features'
+// use getArticles().then(res => { ... }) somewhere
+
+// mixin
+import baseFeatures from '@/base/mixin/base-features'
+export default {
+  mixins: [baseFeatures]
+  // use this.getArticles().then(res => { ... }) somewhere
+}
+```
+
+
 ## License
 
 [MIT license](./LICENSE).
