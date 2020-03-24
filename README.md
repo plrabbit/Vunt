@@ -302,6 +302,45 @@ export default {
 }
 ```
 
+#### Dynamic Path Parameters
+
+To use dynamic path parameters, you may configure it in your ```api-schemas``` files, like this:
+
+```js
+module.exports = [
+  {
+    path: '/home/:userId/blogArticles/', // Will be generated: API_HOST + path
+    desc: 'Get all blog articles',
+    name: 'getArticles', // Customize the function name
+    rest: false,
+    options: {
+      method: 'get'
+    }
+  }
+]
+```
+
+Run ```npm run coder``` to generate functions.
+
+```js
+// Generated function in src/base/api
+export const getArticles = function (data, pathParams) {
+  const {
+    userId
+  } = pathParams
+  return axios({
+    params: data,
+    method: 'get',
+    url: API_HOST + `/home/${userId}/blogArticles/`
+  })
+}
+
+// Pass an object with path parameter(s)!
+import { getArticles } from '@/base/api/base-features'
+getArticles(data, { userId: '7008960' })
+```
+
+
 
 ## License
 
