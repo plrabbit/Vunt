@@ -309,7 +309,7 @@ To use dynamic path parameters, you may configure it in your ```api-schemas``` f
 ```js
 module.exports = [
   {
-    path: '/home/:userId/blogArticles/', // Will be generated: API_HOST + path
+    path: '/home/:userId/blogArticles/', // Insert some dynamic path parameters with a colon before.
     desc: 'Get all blog articles',
     name: 'getArticles', // Customize the function name
     rest: false,
