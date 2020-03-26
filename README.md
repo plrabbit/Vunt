@@ -274,7 +274,7 @@ module.exports = [
   {
     path: '/home/blogArticles', // Will be generated: API_HOST + path
     desc: 'Get all blog articles',
-    name: 'getArticles', // Customize the function name
+    name: 'getArticles',
     rest: false,
     options: {
       method: 'get'
@@ -285,33 +285,46 @@ module.exports = [
 
 > The whole path will be ```API_HOST + path```, ```API_HOST``` is a global variable like ```baseUrl``` in axios, you can find it in ```public/config.js```.
 
-Then, run ```npm run coder```, and find the generated API files in ```src/base/api``` and ```src/base/mixin```.
+Then, run ```npm run coder```, and find the generated API files in ```src/base/api``` and ```src/base/mixin```. The generated functions will be like this:
+
+```js
+/** Get all blog articles */
+export const getArticles = function (data = {}) {
+  return axios({
+    params: data,
+    method: 'get',
+    url: API_HOST + '/home/blogArticles'
+  })
+}
+```
 
 Every function returns a promise from axios, just simply import them in your modules!
 
 ```js
 // api
 import { getArticles } from '@/base/api/base-features'
-// use getArticles().then(res => { ... }) somewhere
+// getArticles({ ... }).then(res => { ... }) somewhere
 
 // mixin
 import baseFeatures from '@/base/mixin/base-features'
 export default {
   mixins: [baseFeatures]
-  // use this.getArticles().then(res => { ... }) somewhere
+  // this.$api.getArticles({ ... }).then(res => { ... }) somewhere
 }
 ```
 
+> TIP: Using ```this.$api.xxx``` in mixins so that we can distinguish Vue components functions from API functions.
+
 #### Dynamic Path Parameters
 
-To use dynamic path parameters, you may configure it in your ```api-schemas``` files, like this:
+To use dynamic path parameters, you may configure it in your api-schemas files, like this:
 
 ```js
 module.exports = [
   {
-    path: '/home/:userId/blogArticles/', // Insert some dynamic path parameters with a colon before.
+    path: '/home/:userId/blogArticles', // Insert some dynamic path parameters with a colon before.
     desc: 'Get all blog articles',
-    name: 'getArticles', // Customize the function name
+    name: 'getArticles',
     rest: false,
     options: {
       method: 'get'
@@ -323,24 +336,60 @@ module.exports = [
 Run ```npm run coder``` to generate functions.
 
 ```js
-// Generated function in src/base/api
-export const getArticles = function (data, pathParams) {
+/** Get all blog articles */
+export const getArticles = function (pathParams = {}, data = {}) {
   const {
     userId
   } = pathParams
   return axios({
     params: data,
     method: 'get',
-    url: API_HOST + `/home/${userId}/blogArticles/`
+    url: API_HOST + `/home/${userId}/blogArticles`
   })
 }
 
 // Pass an object with path parameter(s)!
 import { getArticles } from '@/base/api/base-features'
-getArticles(data, { userId: '7008960' })
+getArticles({ userId: '7008960' }, data)
 ```
 
+#### RESTful API Support
 
+Change the ```rest``` attribute to ```true``` in your api-schemas file.
+
+```js
+module.exports = [
+  {
+    path: '/home/:userId/blogArticles',
+    desc: 'Get all blog articles',
+    name: 'blogArticles',
+    rest: true, // change it to true
+    options: {
+      method: 'get' // method will be ignored
+    }
+  }
+]
+```
+
+Run ```npm run coder```, the request function will be generated reserving an additional ```method``` parameter:
+
+```js
+/** Get all blog articles */
+export const blogArticles = function (method, pathParams = {}, data = {}) {
+  const {
+    userId
+  } = pathParams
+  return axios({
+    params: data,
+    method,
+    url: API_HOST + `/home/${userId}/blogArticles`
+  })
+}
+
+// Usage
+import { blogArticles } from '@/base/api/base-features'
+blogArticles('get', { userId: '7008960' }, data)
+```
 
 ## License
 

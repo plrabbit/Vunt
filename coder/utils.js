@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const beautify = require('js-beautify').js_beautify
+const beautify = require('js-beautify').js
 
 const styles = {
   bold: ['\x1B[1m', '\x1B[22m'],
@@ -57,6 +57,7 @@ exports.beautifyJs = function (content) {
     indent_size: 2,
     jslint_happy: true,
     end_with_newline: true,
-    space_after_anon_function: true
+    space_after_anon_function: true,
+    space_after_named_function: true
   })
 }
