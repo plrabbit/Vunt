@@ -52,7 +52,7 @@ import { <%= PREFIX_HOST_NAME %> } from '@/config'
 <% handleDuplicatedFunctionName(funcNameList) %>
 
 <% if (hasRest) { %>
-/** (MIXIN)Inject Data in config */
+/** Inject Data in config */
 const injectData = function (config, data) {
   if (typeof method !== 'string') return false
   if (/^(get|post|put|patch|delete|head|options)$/i.test(config.method)) {
