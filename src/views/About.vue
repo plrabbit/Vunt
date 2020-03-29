@@ -6,19 +6,13 @@
 </template>
 
 <script>
-import blogArticles from '@/base/mixin/base-features'
+import { getArticles } from '@/base/api/base-features'
 
 export default {
-  mixins: [blogArticles],
   created () {
-    // this.$api.blogArticles('get', {
-    //   userId: '7008656'
-    // }, {
-    //   m: 'article',
-    //   a: 'list'
-    // }).then(res => {
-    //   console.log(res)
-    // })
+    getArticles('get', { userId: '7008' }, {
+      m: 'article', a: 'list'
+    })
   }
 }
 </script>

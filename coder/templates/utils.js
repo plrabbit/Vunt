@@ -2,25 +2,27 @@ exports.validateName = function (name) {
   return /^[a-zA-Z$_][a-zA-Z\d_]*$/.test(name)
 }
 
-exports.handleDuplicatedFunctionName = function (ctx) {
-  const obj = {}
-  for (const n of ctx.values()) {
-    if (obj[n] === undefined) {
-      obj[n] = ''
-    } else {
-      throw new Error(`Duplicated function name: ${n}`)
-    }
-  }
+// exports.handleDuplicatedFunctionName = function (ctx) {
+//   const obj = {}
+//   for (const n of ctx.values()) {
+//     if (obj[n] === undefined) {
+//       obj[n] = ''
+//     } else {
+//       throw new Error(`Duplicated function name: ${n}`)
+//     }
+//   }
+// }
+exports.validateMethod = function (method) {
+  if (typeof method !== 'string') return false
+  return /^(get|post|put|patch|delete|head)$/.test(method.toLowerCase())
 }
 
-exports.handleDuplicatedPathParams = function (pathParams, funcName) {
-  const pathSet = new Set(pathParams)
-  if (pathSet.size !== pathParams.length) {
-    throw new Error('Duplicated params in \'' + funcName + '\' function.')
-  }
+exports.validateDuplicatedPathParams = function (pathParams) {
+  return new Set(pathParams).size === pathParams.length
 }
 
 exports.getPathParams = function (path) {
+  if (typeof path !== 'string') return false
   const reg = /\/(?::(\w+))(?=\/|$)|\/(?:{(\w+)})(?=\/|$)/g
   const pathParams = []
   let arrangedPath = path + ''

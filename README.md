@@ -257,7 +257,7 @@ You can find ```configureWebpack``` and ```chainWebpack``` in ```vue.webpack.con
 
 Before running ```npm run coder```, we need to set up the API schemas in ```code/api-schemas```.
 
-First, creat a new JS file in ```code/api-schemas``` named with a module name, such as ```base-feature.js```(which includes interface like login or logout).
+First, creat a new JS file in ```code/api-schemas``` named with a module name, such as ```base-features.js```(which includes interface like login or logout).
 
 The JS file should export an Array, with your API object in it, for example:
 

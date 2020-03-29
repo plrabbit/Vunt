@@ -16,7 +16,7 @@ const apiCollection = []
 /* Read templates */
 const apiFiles = fs.readdirSync(path.resolve(__dirname, 'api-schemas'))
 apiFiles.forEach(filename => {
-  apiCollection.push({
+  filename !== '.gitkeep' && apiCollection.push({
     filename,
     apiList: require(`./api-schemas/${filename}`)
   })
@@ -30,10 +30,10 @@ apiCollection.forEach(n => {
   })))
 
   /* Write Mixins */
-  writeFile(path.resolve(__dirname, `..${WRITE_PATH}/mixin`), n.filename, beautifyJs(mixinRender({
-    PREFIX_HOST_NAME,
-    apiList: n.apiList
-  })))
+  // writeFile(path.resolve(__dirname, `..${WRITE_PATH}/mixin`), n.filename, beautifyJs(mixinRender({
+  //   PREFIX_HOST_NAME,
+  //   apiList: n.apiList
+  // })))
 })
 
 // execSync('eslint src/base/** --fix')

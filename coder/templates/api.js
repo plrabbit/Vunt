@@ -6,23 +6,31 @@ import axios from '@/helper/axios'
 
 import { <%= PREFIX_HOST_NAME %> } from '@/config'
 
-<% const funcNameList = [] %>
+<% const funcNameList = {} %>
 <% let hasRest = false %>
 <% _.each(apiList, function (api) { %>
-  <% funcNameList.push(api.name) %>
+  <% if (!validateName(api.name)) throw new Error(\`Invalid name "\${api.name}"\`) %>
+  <% if (funcNameList[api.name] === undefined) { %>
+  <% funcNameList[api.name] = '1' %>
+  <% } else { %>
+  <% throw new Error(\`Duplicated function name "\${api.name}"\`) %>
+  <% } %>
   <% if (api.rest) hasRest = true %>
   /** <%= api.desc %> */
-  <% const { pathParams, arrangedPath } = getPathParams(api.path) %>
 
-  <% handleDuplicatedPathParams(pathParams, api.name) %>
+  <% const pathInfo = getPathParams(api.path) %>
+  <% if (!pathInfo) throw new Error(\`Invalid API path in "\${api.name}" function!\`) %>
+  <% const { pathParams, arrangedPath } = pathInfo %>
+  <% if (!validateDuplicatedPathParams(pathParams)) throw new Error(\`Duplicated path parameters in "\${api.name}" function!\`) %>
 
   <% const hasPathParams = pathParams.length > 0 %>
   export const <%= api.name %> = function (<%if (api.rest) { %>method, <% } %><%if (hasPathParams) { %>pathParams = {}, <% } %>data = {}) {
-    <%if (hasPathParams) { %>const { <%= pathParams.join(', ') %> } = pathParams<% } %>
-    const config = {
-      <% const method = api.options.method.toLowerCase() %>
+    <% if (hasPathParams) { %>const { <%= pathParams.join(', ') %> } = pathParams<% } %>
+    <% if (api.rest) { %>let<% } else { %>const<% } %> config = {
+      <% const method = api.options && api.options.method %>
+      <% if (!validateMethod(method) && method !== undefined && !api.rest) throw new Error(\`Invalid method in "\${api.name}" function!\`) %>
       <% if (!api.rest) { %>
-        <% if (method === 'get' || method === 'delete') { %>
+        <% if (method === undefined || method === 'get' || method === 'delete') { %>
           params: data,
         <% } else { %>
           data,
@@ -43,30 +51,27 @@ import { <%= PREFIX_HOST_NAME %> } from '@/config'
       url: <%= PREFIX_HOST_NAME %> + <% if (pathParams.length) { %>\`<%= arrangedPath %>\`<% } else { %>'<%= arrangedPath %>'<% } %>
     }
     <% if (api.rest) { %>
-    injectData(config, data)
+    config = injectData(config, data)
     <% } %>
     return axios(config)
   }
 <% }) %>
 
-<% handleDuplicatedFunctionName(funcNameList) %>
-
 <% if (hasRest) { %>
 /** Inject Data in config */
 const injectData = function (config, data) {
-  if (typeof method !== 'string') return false
-  if (/^(get|post|put|patch|delete|head|options)$/i.test(config.method)) {
-    if (/^(get|delete)$/i.test(config.method)) {
-      config = Object.assign({}, config, { params: data })
-    } else {
-      config = Object.assign({}, config, { data })
-    }
-    return config
+  if (/^(get|delete)$/i.test(config.method) || config.method === undefined) {
+    config = Object.assign({}, config, { params: data })
   } else {
-    return false
+    config = Object.assign({}, config, { data })
   }
+  return config
 }
 <% } %>
+
+export default {
+  <%= [...Object.keys(funcNameList)].join(', ') %>
+}
 `, {
   imports: utils
 })
