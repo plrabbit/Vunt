@@ -6,7 +6,7 @@ import * as func from '@/base/api/<%= filename %>'
 
 export default {
   created () {
-    this.$api = Object.assign(this.$api || {}, func)
+    this.$api = Object.assign(this.$api ? this.$api : {}, func)
   }
 }
 `, {

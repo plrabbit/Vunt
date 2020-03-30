@@ -4,16 +4,3 @@
     <a-button type="primary">Click me!</a-button>
   </div>
 </template>
-
-<script>
-import baseFeatures from '@/base/mixin/base-features'
-
-export default {
-  mixins: [baseFeatures],
-  created () {
-    this.$api.blogArticles12('get', { userId: '7008' }, {
-      m: 'article', a: 'list'
-    })
-  }
-}
-</script>

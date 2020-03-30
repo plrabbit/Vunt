@@ -15,10 +15,10 @@ const apiCollection = []
 
 /* Read templates */
 const apiFiles = fs.readdirSync(path.resolve(__dirname, 'api-schemas'))
-apiFiles.forEach(filename => {
+apiFiles.filter(n => n !== '.gitkeep').forEach(filename => {
   const apiList = require(`./api-schemas/${filename}`)
   if (!Array.isArray(apiList)) throw new Error(`The type to export must be an Array. (${filename})`)
-  filename !== '.gitkeep' && apiCollection.push({
+  apiCollection.push({
     filename,
     apiList
   })

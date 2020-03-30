@@ -245,7 +245,7 @@ new HtmlInjectIconfont(['assets/icons/iconfont.css', 'assets/icons/others/xxx.cs
 
 ### Webpack Configuration
 
-> The ```configureWebpack``` and ```chainWebpack``` attr. are separated from vue.config.js, the main thought is to distinguish webpack from other configurations.
+> The ```configureWebpack``` and ```chainWebpack``` attr are separated from vue.config.js, the main thought is to distinguish webpack from other configurations.
 
 You can find ```configureWebpack``` and ```chainWebpack``` in ```vue.webpack.config.js```
 
@@ -290,15 +290,16 @@ Then, run ```npm run coder```, and find the generated API files in ```src/base/a
 ```js
 /** Get all blog articles */
 export const getArticles = function (data = {}) {
-  return axios({
-    params: data,
+  const config = {
+    params: data, // will generate data attr when method POST/PUT/PATCH
     method: 'get',
     url: API_HOST + '/home/blogArticles'
-  })
+  }
+  return axios(config)
 }
 ```
 
-Every function returns a promise from axios, just simply import them in your modules!
+Import function(s) into your components! The filename is same to the name of api-schemas file that you created.
 
 ```js
 // api
@@ -341,11 +342,12 @@ export const getArticles = function (pathParams = {}, data = {}) {
   const {
     userId
   } = pathParams
-  return axios({
+  const config = {
     params: data,
     method: 'get',
     url: API_HOST + `/home/${userId}/blogArticles`
-  })
+  }
+  return axios(config)
 }
 
 // Pass an object with path parameter(s)!
@@ -375,15 +377,17 @@ Run ```npm run coder```, the request function will be generated reserving an add
 
 ```js
 /** Get all blog articles */
-export const blogArticles = function (method, pathParams = {}, data = {}) {
+export const getArticles = function (method, pathParams = {}, data = {}) {
   const {
     userId
   } = pathParams
-  return axios({
-    params: data,
+  if (!validateMethod(method)) throw new Error('Invalid method parameter!')
+  let config = {
     method,
     url: API_HOST + `/home/${userId}/blogArticles`
-  })
+  }
+  config = injectData(config, data) // inject params/data attr according to the method
+  return axios(config)
 }
 
 // Usage
