@@ -26,6 +26,7 @@ import { <%= PREFIX_HOST_NAME %> } from '@/config'
   <% const hasPathParams = pathParams.length > 0 %>
   export const <%= api.name %> = function (<%if (api.rest) { %>method, <% } %><%if (hasPathParams) { %>pathParams = {}, <% } %>data = {}) {
     <% if (hasPathParams) { %>const { <%= pathParams.join(', ') %> } = pathParams<% } %>
+    <% if (api.rest) { %>if (!validateMethod(method)) throw new Error('Invalid method parameter!')<% } %>
     <% if (api.rest) { %>let<% } else { %>const<% } %> config = {
       <% const method = api.options && api.options.method %>
       <% if (!validateMethod(method) && method !== undefined && !api.rest) throw new Error(\`Invalid method in "\${api.name}" function!\`) %>
@@ -58,7 +59,12 @@ import { <%= PREFIX_HOST_NAME %> } from '@/config'
 <% }) %>
 
 <% if (hasRest) { %>
-/** Inject Data in config */
+/** ------------------ Utils ------------------- */
+
+/** Validate Method */
+const validateMethod = <%= validateMethod %>
+
+/** Inject data to config */
 const injectData = function (config, data) {
   if (/^(get|delete)$/i.test(config.method) || config.method === undefined) {
     config = Object.assign({}, config, { params: data })
@@ -68,10 +74,6 @@ const injectData = function (config, data) {
   return config
 }
 <% } %>
-
-export default {
-  <%= [...Object.keys(funcNameList)].join(', ') %>
-}
 `, {
   imports: utils
 })

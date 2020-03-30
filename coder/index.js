@@ -16,9 +16,11 @@ const apiCollection = []
 /* Read templates */
 const apiFiles = fs.readdirSync(path.resolve(__dirname, 'api-schemas'))
 apiFiles.forEach(filename => {
+  const apiList = require(`./api-schemas/${filename}`)
+  if (!Array.isArray(apiList)) throw new Error(`The type to export must be an Array. (${filename})`)
   filename !== '.gitkeep' && apiCollection.push({
     filename,
-    apiList: require(`./api-schemas/${filename}`)
+    apiList
   })
 })
 
@@ -30,10 +32,11 @@ apiCollection.forEach(n => {
   })))
 
   /* Write Mixins */
-  // writeFile(path.resolve(__dirname, `..${WRITE_PATH}/mixin`), n.filename, beautifyJs(mixinRender({
-  //   PREFIX_HOST_NAME,
-  //   apiList: n.apiList
-  // })))
+  writeFile(path.resolve(__dirname, `..${WRITE_PATH}/mixin`), n.filename, beautifyJs(mixinRender({
+    // PREFIX_HOST_NAME,
+    filename: n.filename.replace('.js', '')
+    // apiList: n.apiList
+  })))
 })
 
 // execSync('eslint src/base/** --fix')

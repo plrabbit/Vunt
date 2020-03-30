@@ -6,11 +6,12 @@
 </template>
 
 <script>
-import { getArticles } from '@/base/api/base-features'
+import baseFeatures from '@/base/mixin/base-features'
 
 export default {
+  mixins: [baseFeatures],
   created () {
-    getArticles('get', { userId: '7008' }, {
+    this.$api.blogArticles12('get', { userId: '7008' }, {
       m: 'article', a: 'list'
     })
   }

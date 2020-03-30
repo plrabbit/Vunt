@@ -2,16 +2,6 @@ exports.validateName = function (name) {
   return /^[a-zA-Z$_][a-zA-Z\d_]*$/.test(name)
 }
 
-// exports.handleDuplicatedFunctionName = function (ctx) {
-//   const obj = {}
-//   for (const n of ctx.values()) {
-//     if (obj[n] === undefined) {
-//       obj[n] = ''
-//     } else {
-//       throw new Error(`Duplicated function name: ${n}`)
-//     }
-//   }
-// }
 exports.validateMethod = function (method) {
   if (typeof method !== 'string') return false
   return /^(get|post|put|patch|delete|head)$/.test(method.toLowerCase())
