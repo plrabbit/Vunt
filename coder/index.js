@@ -33,9 +33,7 @@ apiCollection.forEach(n => {
 
   /* Write Mixins */
   writeFile(path.resolve(__dirname, `..${WRITE_PATH}/mixin`), n.filename, beautifyJs(mixinRender({
-    // PREFIX_HOST_NAME,
     filename: n.filename.replace('.js', '')
-    // apiList: n.apiList
   })))
 })
 

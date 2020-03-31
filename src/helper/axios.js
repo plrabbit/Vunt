@@ -1,3 +1,7 @@
+/**
+ * Axios default configuration
+ */
+
 import axios from 'axios'
 import Qs from 'qs'
 
