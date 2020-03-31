@@ -10,7 +10,7 @@ const config = {
     'Content-Type': 'application/json;charset=utf-8'
   },
   timeout: 10000,
-  withCredentials: true,
+  withCredentials: false,
   responseType: 'json',
   maxContentLength: -1
 }
@@ -26,5 +26,7 @@ axios.defaults.transformRequest = [function (data, config) {
     return Qs.stringify(data)
   }
 }]
+
+export const CancelToken = axios.CancelToken
 
 export default axios.create(config)
