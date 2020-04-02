@@ -25,10 +25,10 @@ import { <%= PREFIX_HOST_NAME %> } from '@/config'
   <% const hasPathParams = pathParams.length > 0 %>
   /**
    * <%= api.desc %>
-   * @returns {promise}
    <%if (api.rest) { %>* @param {string} method<% } %>
    <%if (hasPathParams) { %>* @param {object} pathParams<% } %>
    * @param {object} data/params
+   * @returns {promise}
    */
   export const <%= api.name %> = function (<%if (api.rest) { %>method, <% } %><%if (hasPathParams) { %>pathParams = {}, <% } %>data = {}) {
     <% if (hasPathParams) { %>const { <%= pathParams.join(', ') %> } = pathParams<% } %>
@@ -55,8 +55,8 @@ import { <%= PREFIX_HOST_NAME %> } from '@/config'
           <% } %>
         <% } %>
       <% } %>
-      meta: '123',
-      url: <%= PREFIX_HOST_NAME %> + <% if (pathParams.length) { %>\`<%= arrangedPath %>\`<% } else { %>'<%= arrangedPath %>'<% } %>
+      url: <%= PREFIX_HOST_NAME %> + <% if (pathParams.length) { %>\`<%= arrangedPath %>\`<% } else { %>'<%= arrangedPath %>'<% } %>,
+      _funcName: '<%= api.name %>'
     }
     <% if (api.rest) { %>
     config = injectData(config, data)

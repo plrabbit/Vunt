@@ -10,6 +10,10 @@ import './helper/interceptor'
 // Ant Design
 import './ant-components'
 
+// Global Plugins
+import plugins from './helper/plugins'
+Vue.use(plugins)
+
 // Router guarder
 guarder(router)
 

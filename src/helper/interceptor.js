@@ -4,10 +4,11 @@
 
 import axios, { CancelToken } from '@/helper/axios'
 
-window.__axiosRequestPending__ = new Map()
+// Axios pending Array, for cancelling request.
+window.__axiosPending__ = []
 
 axios.interceptors.request.use(config => {
-  handleRequestPending(config)
+  injectCancelPending(config)
 
   // ...
 
@@ -18,25 +19,17 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(res => {
   // ...
 
-  window.__axiosRequestPending__.delete(`${res.config.method}&${res.config.url}`)
-
+  spliceCancelSource(`${res.config.method}:${res.config._funcName}`)
   return res
 })
-
-/* Request Handler */
-const handleRequestPending = function (config) {
-  const reqCancel = window.__axiosRequestPending__.get(`${config.method}&${config.url}`)
-  if (reqCancel) {
-    reqCancel()
-    window.__axiosRequestPending__.delete(`${config.method}&${config.url}`)
-  }
-  injectCancelPending(config)
-}
 
 /* Inject cancel function */
 const injectCancelPending = function (config) {
   config.cancelToken = new CancelToken(cancel => {
-    window.__axiosRequestPending__.set(`${config.method}&${config.url}`, cancel)
+    window.__axiosPending__.push({
+      name: `${config.method}:${config._funcName}`,
+      cancel
+    })
   })
 }
 
@@ -53,4 +46,9 @@ const paramsEncoded = function (config) {
     config.params = {}
   }
   config.url = url
+}
+
+/* Splice cancel source in global pending Array */
+const spliceCancelSource = function (srcString) {
+  window.__axiosPending__ = window.__axiosPending__.filter(n => n.name !== srcString)
 }

@@ -10,7 +10,6 @@ const config = {
     'Content-Type': 'application/json;charset=utf-8'
   },
   timeout: 10000,
-  withCredentials: false,
   responseType: 'json',
   maxContentLength: -1
 }
