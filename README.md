@@ -395,6 +395,26 @@ import { blogArticles } from '@/base/api/base-features'
 blogArticles('get', { userId: '7008960' }, data)
 ```
 
+### Cancelling request
+
+> Vunt offers two global functions for cancelling request, you can use them directly in your Vue components.
+
+Here is an example:
+
+```js
+// Some request
+this.$api.getArticles('GET', {
+  m: 'article',
+  a: 'list'
+})
+
+// Cancel single request
+this.$cancelRequest('GET', 'getArticles') // ('<method>', '<function-name>')
+
+// Cancel all request in one time
+this.$cancelAllRequest()
+```
+
 ## License
 
 [MIT license](./LICENSE).
