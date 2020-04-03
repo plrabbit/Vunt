@@ -55,14 +55,14 @@ import { <%= PREFIX_HOST_NAME %> } from '@/config'
           <% } %>
         <% } %>
       <% } %>
-      url: <%= PREFIX_HOST_NAME %> + <% if (pathParams.length) { %>\`<%= arrangedPath %>\`<% } else { %>'<%= arrangedPath %>'<% } %>,
-      _funcName: '<%= api.name %>'
+      url: <%= PREFIX_HOST_NAME %> + <% if (pathParams.length) { %>\`<%= arrangedPath %>\`<% } else { %>'<%= arrangedPath %>'<% } %>
     }
     <% if (api.rest) { %>
     config = injectData(config, data)
     <% } %>
     return axios(config)
   }
+  <%= api.name %>.url = <%= PREFIX_HOST_NAME %> + <% if (pathParams.length) { %>\`<%= arrangedPath %>\`<% } else { %>'<%= arrangedPath %>'<% } %>
 <% }) %>
 
 <% if (hasRest) { %>

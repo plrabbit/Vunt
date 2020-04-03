@@ -19,7 +19,7 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(res => {
   // ...
 
-  spliceCancelSource(`${res.config.method}:${res.config._funcName}`)
+  spliceCancelSource(`${res.config.method}@${res.config.url}`)
   return res
 })
 
@@ -27,7 +27,7 @@ axios.interceptors.response.use(res => {
 const injectCancelPending = function (config) {
   config.cancelToken = new CancelToken(cancel => {
     window.__axiosPending__.push({
-      name: `${config.method}:${config._funcName}`,
+      name: `${config.method}@${config.url}`,
       cancel
     })
   })

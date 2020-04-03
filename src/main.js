@@ -10,9 +10,9 @@ import './helper/interceptor'
 // Ant Design
 import './ant-components'
 
-// Global Plugins
-import plugins from './helper/plugins'
-Vue.use(plugins)
+// Global function for cancelling request
+import cancelRequest from './helper/cancel-request'
+Vue.use(cancelRequest)
 
 // Router guarder
 guarder(router)

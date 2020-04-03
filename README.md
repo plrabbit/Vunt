@@ -402,14 +402,16 @@ blogArticles('get', { userId: '7008960' }, data)
 Here is an example:
 
 ```js
-// Some request
+// Some request(using mixins)
 this.$api.getArticles('GET', {
   m: 'article',
   a: 'list'
 })
 
 // Cancel single request
-this.$cancelRequest('GET', 'getArticles') // ('<method>', '<function-name>')
+this.$cancelRequest('GET', this.$api.getArticles) // ('<method>', '<request-function>')
+// Of course, you can pass an url instead
+this.$cancelRequest('GET', 'http://127.0.0.1:8080/v1/articles')
 
 // Cancel all request in one time
 this.$cancelAllRequest()
