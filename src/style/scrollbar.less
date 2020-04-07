@@ -1,0 +1,18 @@
+@import "variable";
+
+@--size: 8px;
+
+::-webkit-scrollbar {
+  width: @--size;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: @--size/2;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: @--size/2;
+  background-color: rgba(@primary-color, .6)
+}
