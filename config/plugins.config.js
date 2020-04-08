@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
@@ -25,5 +26,7 @@ if (process.env.NODE_ENV === 'production') {
     new BundleAnalyzerPlugin()
   )
 }
+
+plugins.push(new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn|en/))
 
 module.exports = plugins
