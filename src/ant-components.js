@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 /* Import as we need. */
 import {
-  LocaleProvider,
+  ConfigProvider,
   Button,
 
   message,
@@ -12,7 +12,7 @@ import {
 
 /* message, notification, Modal are not required to Vue.use() */
 [
-  LocaleProvider,
+  ConfigProvider,
   Button
 ].forEach(n => {
   Vue.use(n)

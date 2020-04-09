@@ -1,5 +1,5 @@
 <template>
-  <a-locale-provider :locale="zhCN">
+  <a-config-provider :locale="zhCN">
     <div id="app">
       <div id="nav">
         <router-link to="/">Home</router-link> |
@@ -10,11 +10,11 @@
       </keep-alive>
       <router-view v-if="!$route.meta.keepAlive"/>
     </div>
-  </a-locale-provider>
+  </a-config-provider>
 </template>
 
 <script>
-import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
+import zhCN from 'ant-design-vue/es/locale/zh_CN'
 
 /* Remove the style element in public/index.html */
 const removeIndexStyle = function () {

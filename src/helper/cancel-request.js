@@ -10,15 +10,12 @@ export default {
      * @param ctx - Your request function or url, e.g this.$api.getArticles, http://127.0.0.1:8080/v1/articles
      */
     Vue.prototype.$cancelRequest = function (method, ctx) {
-      if (!/^(get|post|put|patch|delete|head)$/i.test(method)) {
-        console.error('Invalid method')
-        return
-      }
+      if (!/^(get|post|put|patch|delete|head)$/i.test(method)) return
       method = method.toLowerCase()
       let url
       if (typeof ctx === 'function' && ctx.url) url = ctx.url
       else if (typeof ctx === 'string') url = ctx
-      window.__axiosPending__.map(n => {
+      url && window.__axiosPending__.map(n => {
         if (n.name === `${method}@${url}`) {
           n.cancel()
         }
