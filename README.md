@@ -182,7 +182,7 @@ const sourcesCDN = {
 
 ### Theme
 
-Open the ```theme.config.js```, you can see the frequently-used variables in [Ant Design Vue](https://github.com/vueComponent/ant-design-vue).
+Open the ```theme.config.js```, you can see the frequently-used variables of Ant Design Vue.
 
 Just modify them simply.
 
@@ -206,48 +206,13 @@ module.exports = {
 }
 ```
 
-In addition, all less variables could be found in [Default Variables](https://github.com/vueComponent/ant-design-vue/blob/master/components/style/themes/default.less)
+All less variables could be found in [Default Variables](https://github.com/vueComponent/ant-design-vue/blob/master/components/style/themes/default.less)
 
 > Please note that theme.config.js is a **js file**, not a less file!!!
 
-### Iconfont
+#### Global styles
 
-Vunt can help you inject [Iconfont](https://www.iconfont.cn/) conveniently.
-
-> Vunt supports any icons with "Font Class", not only icons from [Iconfont](https://www.iconfont.cn/).
-
-Copy your iconfont files into ```public/assets/icons```, including the css file. Storing them into the ```public``` folder so that you can replace the icons without rebuilding, unless adding a new set of iconfont.
-
-That will be like this:
-
-    public
-    ├── assets
-        ├── icons
-            ├── iconfont.css
-            ├── iconfont.eot
-            ├── iconfont.svg
-            ├── iconfont.ttf
-            ├── iconfont.woff
-            ├── iconfont.woff2
-
-Rerun ```npm run serve```.
-
-Generally, only ```assets/icons/iconfont.css``` is specified. You can specify the other css file(s) in ```config/plugins.config.js```.
-
-```js
-// config/plugins.config.js
-
-// The paths are relative to 'publicPath' configured in vue.config.js
-new HtmlInjectIconfont(['assets/icons/iconfont.css', 'assets/icons/others/xxx.css'], publicPath)
-```
-
-> In addition, changing the iconfont css files configured in ```config/plugins.config.js``` can trigger a reload automatically.
-
-### Webpack Configuration
-
-> The ```configureWebpack``` and ```chainWebpack``` attr are separated from vue.config.js, the main thought is to distinguish webpack from other configurations.
-
-You can find ```configureWebpack``` and ```chainWebpack``` in ```vue.webpack.config.js```
+It is highly recommended that using ```variables.less``` in ```src/style``` to manage public styles of your modules.
 
 ### API Management
 
@@ -416,6 +381,12 @@ this.$cancelRequest('GET', 'http://127.0.0.1:8080/v1/articles')
 // Cancel all request in one time
 this.$cancelAllRequest()
 ```
+
+### Webpack Configuration
+
+> The ```configureWebpack``` and ```chainWebpack``` attr are separated from vue.config.js, the main thought is to distinguish webpack from other configurations.
+
+You can find ```configureWebpack``` and ```chainWebpack``` in ```vue.webpack.config.js```
 
 ## License
 
