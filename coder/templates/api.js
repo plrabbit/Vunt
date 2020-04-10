@@ -32,7 +32,7 @@ import { <%= PREFIX_HOST_NAME %> } from '@/config'
    */
   export const <%= api.name %> = function (<%if (api.rest) { %>method, <% } %><%if (hasPathParams) { %>pathParams = {}, <% } %>data = {}) {
     <% if (hasPathParams) { %>const { <%= pathParams.join(', ') %> } = pathParams<% } %>
-    <% if (api.rest) { %>if (!validateMethod(method)) throw new Error('Invalid method parameter!')<% } %>
+    <% if (api.rest) { %>if (!validateMethod(method)) return Promise.reject(new Error('Invalid parameter "method"!'))<% } %>
     <% if (api.rest) { %>let<% } else { %>const<% } %> config = {
       <% const method = api.options && api.options.method %>
       <% if (!validateMethod(method) && method !== undefined && !api.rest) throw new Error(\`Invalid method in "\${api.name}" function!\`) %>

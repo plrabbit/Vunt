@@ -4,7 +4,7 @@ exports.validateName = function (name) {
 
 exports.validateMethod = function (method) {
   if (typeof method !== 'string') return false
-  return /^(get|post|put|patch|delete|head)$/.test(method.toLowerCase())
+  return /^(get|post|put|patch|delete|head)$/i.test(method)
 }
 
 exports.validateDuplicatedPathParams = function (pathParams) {

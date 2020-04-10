@@ -382,6 +382,8 @@ this.$cancelRequest('GET', 'http://127.0.0.1:8080/v1/articles')
 this.$cancelAllRequest()
 ```
 
+> Please note that passing a function can only work for functions generated from ```coder``` script. If you want to cancel other request function, you may pass an url instead.
+
 ### Webpack Configuration
 
 > The ```configureWebpack``` and ```chainWebpack``` attr are separated from vue.config.js, the main thought is to distinguish webpack from other configurations.
