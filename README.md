@@ -328,7 +328,7 @@ Change the ```rest``` attribute to ```true``` in your api-schemas file.
 module.exports = [
   {
     path: '/home/:userId/blogArticles',
-    desc: 'Get all blog articles',
+    desc: 'API for blog articles',
     name: 'blogArticles',
     rest: true, // change it to true
     options: {

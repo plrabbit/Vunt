@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 // const { execSync } = require('child_process')
-const { log, writeFile, beautifyJs } = require('./utils')
+const { log, writeFile, beautifyJs, deleteFolderRecursive } = require('./utils')
 
 const apiRender = require('./templates/api')
 const mixinRender = require('./templates/mixin')
@@ -23,7 +23,10 @@ apiFiles.filter(n => n !== '.gitkeep').forEach(filename => {
     apiList
   })
 })
-
+const writePathAbs = path.resolve(__dirname, `..${WRITE_PATH}`)
+if (fs.existsSync(writePathAbs)) {
+  deleteFolderRecursive(writePathAbs)
+}
 apiCollection.forEach(n => {
   /* Write API */
   writeFile(path.resolve(__dirname, `..${WRITE_PATH}/api`), n.filename, beautifyJs(apiRender({

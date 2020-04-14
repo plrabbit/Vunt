@@ -2,9 +2,9 @@
   "name": "@plrabbit/vunt",
   "version": "0.1.0",
   "scripts": {
-    "serve": "vue-cli-service serve --open",
-    "build": "node coder/index.js && vue-cli-service build",
-    "coder": "node coder/index.js",
+    "serve": "node coder && vue-cli-service serve --open",
+    "build": "node coder && vue-cli-service build",
+    "coder": "node coder",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },
