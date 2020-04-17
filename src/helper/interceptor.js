@@ -19,7 +19,7 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(res => {
   // ...
 
-  spliceCancelSource(`${res.config.method}@${res.config.url}`)
+  filterCancelSource(`${res.config.method}@${res.config.url}`)
   return res
 })
 
@@ -48,7 +48,7 @@ const paramsEncoded = function (config) {
   config.url = url
 }
 
-/* Splice cancel source in global pending Array */
-const spliceCancelSource = function (srcString) {
+/* Filter cancel source in global pending Array */
+const filterCancelSource = function (srcString) {
   window.__axiosPending__ = window.__axiosPending__.filter(n => n.name !== srcString)
 }
