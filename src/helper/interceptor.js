@@ -2,7 +2,7 @@
  * Axios interceptors
  */
 
-import axios, { CancelToken } from '@/helper/axios'
+import axios, { CancelToken } from '@/utils/axios'
 
 // Axios pending Array, for cancelling request.
 window.__axiosPending__ = []

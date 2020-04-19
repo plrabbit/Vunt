@@ -2,7 +2,7 @@ const _ = require('lodash')
 const utils = require('./utils')
 
 module.exports = _.template(`
-import axios from '@/helper/axios'
+import axios from '@/utils/axios'
 
 import { <%= PREFIX_HOST_NAME %> } from '@/config'
 

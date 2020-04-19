@@ -11,7 +11,7 @@ import './helper/interceptor'
 import './ant-components'
 
 // Global function for cancelling request
-import cancelRequest from './helper/cancel-request'
+import cancelRequest from './utils/cancel-request'
 Vue.use(cancelRequest)
 
 // Router guarder
