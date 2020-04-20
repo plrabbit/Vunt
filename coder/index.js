@@ -1,7 +1,7 @@
-const fs = require('fs')
+const fs = require('fs-extra')
 const path = require('path')
 // const { execSync } = require('child_process')
-const { log, readFileList, writeFile, beautifyJs, deleteFolderRecursive } = require('./utils')
+const { log, readFileList, writeFile, beautifyJs } = require('./utils')
 
 const apiRender = require('./templates/api')
 const mixinRender = require('./templates/mixin')
@@ -27,7 +27,7 @@ apiFiles.filter(n => /\.js$/.test(n)).forEach(filename => {
 })
 const writePathAbs = path.resolve(__dirname, `..${WRITE_PATH}`)
 if (fs.existsSync(writePathAbs)) {
-  deleteFolderRecursive(writePathAbs)
+  fs.removeSync(writePathAbs)
 }
 apiCollection.forEach(n => {
   /* Write API */

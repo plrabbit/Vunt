@@ -84,23 +84,3 @@ exports.beautifyJs = function (content) {
     space_after_named_function: true
   })
 }
-
-function deleteFolderRecursive (url) {
-  let files = []
-  if (fs.existsSync(url)) {
-    files = fs.readdirSync(url)
-    files.forEach(function (file, index) {
-      const curPath = path.join(url, file)
-      if (fs.statSync(curPath).isDirectory()) { // recurse
-        deleteFolderRecursive(curPath)
-      } else {
-        fs.unlinkSync(curPath)
-      }
-    })
-    fs.rmdirSync(url)
-  } else {
-    throw new Error('Invalid url')
-  }
-}
-
-exports.deleteFolderRecursive = deleteFolderRecursive
