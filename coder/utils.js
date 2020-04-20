@@ -38,13 +38,36 @@ exports.log = function (key, obj) {
   }
 }
 
+exports.readFileList = function (dir) {
+  const filesList = []
+  const apiSchemasPath = dir
+  handler(dir, filesList)
+  function handler (directory, filesList = []) {
+    const files = fs.readdirSync(directory)
+    files.forEach(item => {
+      const fullPath = path.join(directory, item)
+      const stat = fs.statSync(fullPath)
+      if (stat.isDirectory()) {
+        handler(path.join(directory, item), filesList)
+      } else {
+        filesList.push(path.relative(apiSchemasPath, fullPath).replace(/\\/g, '/'))
+      }
+    })
+    return filesList
+  }
+  return filesList
+}
+
 exports.writeFile = function (filepath, filename, content) {
   if (!fs.existsSync(filepath)) {
     fs.mkdirSync(filepath, { recursive: true })
   }
+  const fileDir = path.dirname(path.resolve(filepath, `${filename}`))
+  if (!fs.existsSync(fileDir)) {
+    fs.mkdirSync(fileDir, { recursive: true })
+  }
   fs.writeFileSync(path.resolve(filepath, `${filename}`), content, { encoding: 'utf8' })
 }
-
 exports.beautifyJs = function (content) {
   content = content.replace(/(\r\n|\n)\s*/g, '\n')
     .replace(/\(\n/g, '(')

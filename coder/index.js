@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 // const { execSync } = require('child_process')
-const { log, writeFile, beautifyJs, deleteFolderRecursive } = require('./utils')
+const { log, readFileList, writeFile, beautifyJs, deleteFolderRecursive } = require('./utils')
 
 const apiRender = require('./templates/api')
 const mixinRender = require('./templates/mixin')
@@ -13,9 +13,11 @@ const WRITE_PATH = '/src/base'
 console.log('\nGenerating Codes...')
 const apiCollection = []
 
+const apiSchemasPath = path.resolve(__dirname, 'api-schemas')
+
 /* Read templates */
-const apiFiles = fs.readdirSync(path.resolve(__dirname, 'api-schemas'))
-apiFiles.filter(n => n !== '.gitkeep').forEach(filename => {
+const apiFiles = readFileList(apiSchemasPath)
+apiFiles.filter(n => /\.js$/.test(n)).forEach(filename => {
   const apiList = require(`./api-schemas/${filename}`)
   if (!Array.isArray(apiList)) throw new Error(`The type to export must be an Array. (${filename})`)
   apiCollection.push({
