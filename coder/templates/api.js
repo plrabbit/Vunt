@@ -60,9 +60,9 @@ import { <%= PREFIX_HOST_NAME %> } from '@/config'
     <% if (api.rest) { %>
     config = injectData(config, data)
     <% } %>
+    <%= api.name %>.url = <%= PREFIX_HOST_NAME %> + <% if (pathParams.length) { %>\`<%= arrangedPath %>\`<% } else { %>'<%= arrangedPath %>'<% } %>
     return axios(config)
   }
-  <%= api.name %>.url = <%= PREFIX_HOST_NAME %> + <% if (pathParams.length) { %>\`<%= arrangedPath %>\`<% } else { %>'<%= arrangedPath %>'<% } %>
 <% }) %>
 
 <% if (hasRest) { %>
