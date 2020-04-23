@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="icon" href="<%= BASE_URL %>favicon.ico">
   <title><%= htmlWebpackPlugin.options.title %></title>
-  <style id="initial-loading-spin">.ant-spin{position:fixed;left:0;top:0;height:100%;width:100%;background:#fff;user-select:none;z-index:9999;overflow:hidden}.ant-spin-container{position:absolute;top:50%;left:50%;transform:translate(-50%,-100%)}.ant-spin-dot{position:relative;display:inline-block;font-size:48px;width:48px;height:48px;box-sizing:border-box;transform:rotate(45deg);-webkit-animation:antRotate 1.2s infinite linear;animation:antRotate 1.2s infinite linear}.ant-spin-dot i{width:21px;height:21px;position:absolute;display:block;background-color:#1890ff;border-radius:100%;transform:scale(.75);transform-origin:50% 50%;opacity:.3;-webkit-animation:antSpinMove 1s infinite linear alternate;animation:antSpinMove 1s infinite linear alternate}.ant-spin-dot i:nth-child(1){top:0;left:0}.ant-spin-dot i:nth-child(2){top:0;right:0;-webkit-animation-delay:.4s;animation-delay:.4s}.ant-spin-dot i:nth-child(3){right:0;bottom:0;-webkit-animation-delay:.8s;animation-delay:.8s}.ant-spin-dot i:nth-child(4){bottom:0;left:0;-webkit-animation-delay:1.2s;animation-delay:1.2s}@keyframes antSpinMove{to{opacity:1}}@-webkit-keyframes antSpinMove{to{opacity:1}}@keyframes antRotate{to{-webkit-transform:rotate(405deg);transform:rotate(405deg)}}@-webkit-keyframes antRotate{to{-webkit-transform:rotate(405deg);transform:rotate(405deg)}}</style>
+  <style id="initial-loading-spin">.init-spin{position:fixed;left:0;top:0;height:100%;width:100%;background:#fff;user-select:none;z-index:9999;overflow:hidden}.init-spin-container{position:absolute;top:50%;left:50%;transform:translate(-50%,-100%)}.init-spin-dot{position:relative;display:inline-block;font-size:48px;width:48px;height:48px;box-sizing:border-box;transform:rotate(45deg);-webkit-animation:antRotate 1.2s infinite linear;animation:antRotate 1.2s infinite linear}.init-spin-dot i{width:21px;height:21px;position:absolute;display:block;background-color:#1890ff;border-radius:100%;transform:scale(.75);transform-origin:50% 50%;opacity:.3;-webkit-animation:antSpinMove 1s infinite linear alternate;animation:antSpinMove 1s infinite linear alternate}.init-spin-dot i:nth-child(1){top:0;left:0}.init-spin-dot i:nth-child(2){top:0;right:0;-webkit-animation-delay:.4s;animation-delay:.4s}.init-spin-dot i:nth-child(3){right:0;bottom:0;-webkit-animation-delay:.8s;animation-delay:.8s}.init-spin-dot i:nth-child(4){bottom:0;left:0;-webkit-animation-delay:1.2s;animation-delay:1.2s}@keyframes antSpinMove{to{opacity:1}}@-webkit-keyframes antSpinMove{to{opacity:1}}@keyframes antRotate{to{-webkit-transform:rotate(405deg);transform:rotate(405deg)}}@-webkit-keyframes antRotate{to{-webkit-transform:rotate(405deg);transform:rotate(405deg)}}</style>
   <!-- require cdn assets css -->
   <% for (var i in htmlWebpackPlugin.options.cdn && htmlWebpackPlugin.options.cdn.css) { %>
   <script type="text/javascript" src="<%= htmlWebpackPlugin.options.cdn.css[i] %>"></script>
@@ -46,9 +46,9 @@ function browserInfo () {
 
 </script>
 <div id="app">
-  <div class="ant-spin">
-    <div class="ant-spin-container">
-      <span class="ant-spin-dot"><i></i><i></i><i></i><i></i></span>
+  <div class="init-spin">
+    <div class="init-spin-container">
+      <span class="init-spin-dot"><i></i><i></i><i></i><i></i></span>
     </div>
   </div>
 </div>
