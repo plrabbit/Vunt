@@ -5,7 +5,7 @@ module.exports = _.template(`
 import * as func from '@/base/api/<%= filename %>'
 
 export default {
-  created () {
+  beforeCreate () {
     this.$api = Object.assign(this.$api ? this.$api : {}, func)
   }
 }
