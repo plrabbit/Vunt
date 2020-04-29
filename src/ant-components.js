@@ -3,6 +3,9 @@ import Vue from 'vue'
 /* Import as we need. */
 import {
   ConfigProvider,
+  Row,
+  Col,
+  Icon,
   Button,
 
   message,
@@ -13,6 +16,9 @@ import {
 /* message, notification, Modal are not required to Vue.use() */
 [
   ConfigProvider,
+  Row,
+  Col,
+  Icon,
   Button
 ].forEach(n => {
   Vue.use(n)
