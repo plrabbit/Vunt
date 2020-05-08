@@ -2,7 +2,7 @@
  * Axios default configuration
  */
 
-import axios from '@/utils/axios'
+import axios from 'axios'
 import Qs from 'qs'
 
 const config = {

@@ -279,6 +279,8 @@ export default {
 }
 ```
 
+P.S. Using mixins may cause problem with same function name in different schemas. Vunt will offer a way with ```Vuex``` instead in the future.
+
 > TIP: Using ```this.$api.xxx``` in mixins so that we can distinguish Vue components functions from API functions.
 
 #### Dynamic Path Parameters
@@ -389,6 +391,30 @@ this.$cancelAllRequest()
 > The ```configureWebpack``` and ```chainWebpack``` attr are separated from vue.config.js, the main thought is to distinguish webpack from other configurations.
 
 You can find ```configureWebpack``` and ```chainWebpack``` in ```vue.webpack.config.js```
+
+### Components
+
+#### Exception Pages(403, 404, 500)
+
+You can find the component in ```src/components/BasicLayout/Exception```. All you have to do is only import it and pass ```type``` prop(String) with 403, 404 or 500, like this:
+
+```vue
+<template>
+  <exception-page type="404" />
+</template>
+
+<script>
+import ExceptionPage from '@/components/BasicLayout/Exception'
+
+export default {
+  components: {
+    ExceptionPage
+  }
+}
+</script>
+```
+
+> Besides, you may configure the display text in ```src/components/BasicLayout/Exception/type.js```
 
 ## License
 
