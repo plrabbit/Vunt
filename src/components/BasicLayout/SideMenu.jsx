@@ -82,11 +82,14 @@ export default {
     },
     updateMenu () {
       const currentPath = '0|' + this.$route.path
-      const parentPath = currentPath.match(/(\/\w+)\/.+$/)[1]
+      let parentPath = currentPath.match(/(\/\w+)\/.+$/)
+      if (parentPath) {
+        parentPath = parentPath[1]
+      }
       this.selectedKeys = [currentPath]
       const openKeys = []
       if (this.mode === 'inline') {
-        openKeys.push(parentPath)
+        parentPath && openKeys.push(parentPath)
       }
 
       this.collapsed ? (this.cachedOpenKeys = openKeys) : (this.openKeys = openKeys)
@@ -102,7 +105,7 @@ export default {
     },
     renderMenuItem (menu) {
       const CustomTag = menu.type === 0 ? 'router-link' : 'a'
-      const props = { to: { name: menu.path.substr(1) } }
+      const props = { to: menu.path }
       // const attrs = { href: menu.path, target: menu.meta && menu.meta.target }
       const attrs = { href: menu.path }
       if (CustomTag === 'a') attrs.target = '_blank'
@@ -147,13 +150,16 @@ export default {
         mode: this.mode,
         theme: this.theme,
         openKeys: this.openKeys,
-        selectedKeys: this.selectedKeys,
-        inlineCollapsed: this.collapsed
+        selectedKeys: this.selectedKeys
       },
       on: {
         openChange: this.onOpenChange,
         select: this.onSelect
       }
+    }
+
+    if (this.mode === 'inline') {
+      dynamicProps.props.inlineCollapsed = this.collapsed
     }
 
     const menuTree = this.menu.map(item => {
