@@ -16,13 +16,7 @@ const configureWebpack = function () {
     /* CDN resources */
     externals: isProduction ? (sourcesCDN.useCDN ? sourcesCDN.externals : {}) : {},
 
-    resolve: {
-      /* Decrease the svg icons bundle size
-         In the future, ant design official will provide new API to allow us importing icons as our need  */
-      alias: {
-        '@ant-design/icons': 'purched-antd-icons'
-      }
-    }
+    resolve: {}
   }
 
   return Object.assign({}, baseConfig, {
