@@ -414,7 +414,7 @@ export default {
 </script>
 ```
 
-> Besides, you may configure the display text in ```src/components/BasicLayout/Exception/type.js```
+> Besides, you may configure the display text in ```src/components/BasicLayout/Exception/enUS.js```
 
 ## License
 

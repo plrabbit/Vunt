@@ -1,6 +1,10 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/img/logo.png">
+    <div class="logo__container">
+      <img src="../assets/img/Ant.svg" alt="AntD">
+      <span>&plus;</span>
+      <img src="../assets/img/vue.png" alt="Vue logo">
+    </div>
     <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
@@ -16,3 +20,26 @@ export default {
   }
 }
 </script>
+
+<style lang="less">
+.home {
+  padding: 24px 0 0 0;
+}
+
+.logo__container {
+  padding: 0 0 24px 0;
+
+  img {
+    width: 160px;
+    vertical-align: middle;
+  }
+
+  span {
+    margin: 0 24px;
+    color: #cccccc;
+    font-size: 48px;
+    font-weight: bold;
+    vertical-align: middle;
+  }
+}
+</style>

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import types from './type'
+import types from './locale/enUS'
 
 export default {
   name: 'Exception',
@@ -23,6 +23,9 @@ export default {
     type: {
       type: String,
       default: '404'
+    },
+    lang: {
+
     }
   },
   data () {
