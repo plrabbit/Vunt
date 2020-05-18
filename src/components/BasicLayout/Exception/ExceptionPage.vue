@@ -8,7 +8,7 @@
       <h1>{{ config[type].title }}</h1>
       <div class="desc">{{ config[type].desc }}</div>
       <div class="actions">
-        <a-button type="primary" @click="handleToHome">返回首页</a-button>
+        <a-button type="primary" @click="handleToHome">{{ config.back }}</a-button>
       </div>
     </div>
   </div>
@@ -50,9 +50,9 @@ export default {
   min-height: 500px;
 
   .imgBlock {
-    flex: 0 0 55%;
-    width: 55%;
-    padding-right: 152px;
+    flex: 0 0 50%;
+    width: 50%;
+    padding-right: 64px;
     zoom: 1;
     &::before,
     &::after {
@@ -78,7 +78,7 @@ export default {
   }
 
   .content {
-    flex: auto;
+    flex: 0 0 30%;
 
     h1 {
       margin-bottom: 24px;
@@ -106,7 +106,19 @@ export default {
 @media screen and (max-width: @screen-xl) {
   .exception {
     .imgBlock {
-      padding-right: 88px;
+      padding-right: 24px;
+    }
+  }
+}
+
+@media screen and (max-width: @screen-lg) {
+  .exception {
+    .imgBlock {
+      padding: 0 24px;
+    }
+
+    .content {
+      flex: 0 0 45%;
     }
   }
 }
@@ -118,6 +130,9 @@ export default {
     .imgBlock {
       margin: 0 auto 24px;
       padding-right: 0;
+    }
+    .imgEle {
+
     }
   }
 }
