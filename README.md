@@ -404,7 +404,7 @@ You can find the component in ```src/components/BasicLayout/Exception```. All yo
 </template>
 
 <script>
-import ExceptionPage from '@/components/BasicLayout/Exception'
+import ExceptionPage from '@/components/Basic/Exception'
 
 export default {
   components: {
@@ -414,7 +414,7 @@ export default {
 </script>
 ```
 
-> Besides, you may configure the display text in ```src/components/BasicLayout/Exception/enUS.js```
+> Besides, you may configure the display text in ```src/components/BasicLayout/Exception/en_US.js```
 
 ## License
 

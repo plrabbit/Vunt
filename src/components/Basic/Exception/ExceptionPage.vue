@@ -15,7 +15,8 @@
 </template>
 
 <script>
-import types from './locale/enUS'
+import { mapGetters } from 'vuex'
+// import types from './locale/en_US'
 
 export default {
   name: 'Exception',
@@ -23,20 +24,31 @@ export default {
     type: {
       type: String,
       default: '404'
-    },
-    lang: {
-
     }
+  },
+  computed: {
+    ...mapGetters({
+      language: 'language'
+    })
   },
   data () {
     return {
-      config: types
+      config: {
+        403: {},
+        404: {},
+        500: {},
+        back: ''
+      }
     }
   },
   methods: {
     handleToHome () {
-      this.$router.push('/Home')
+      this.$router.push('/')
     }
+  },
+  created () {
+    const locale = require(`./locale/${this.language}`)
+    this.config = locale.default
   }
 }
 </script>
