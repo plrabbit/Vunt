@@ -7,12 +7,19 @@ export default [
   },
   {
     path: '/',
-    name: 'Home',
-    component: _import('Home')
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: _import('About')
+    component: _import('Index'),
+    redirect: '/Home',
+    children: [
+      {
+        path: '/Home',
+        name: 'Home',
+        component: _import('Home')
+      },
+      {
+        path: '/About',
+        name: 'About',
+        component: _import('About')
+      }
+    ]
   }
 ]

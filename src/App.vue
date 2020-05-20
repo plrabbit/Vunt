@@ -1,9 +1,6 @@
 <template>
   <a-config-provider :locale="locale">
     <div id="app">
-      <div id="nav">
-        <side-menu :menu="menus" mode="horizontal" theme="light" />
-      </div>
       <keep-alive>
         <router-view v-if="$route.meta.keepAlive"/>
       </keep-alive>
@@ -14,8 +11,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import SideMenu from '@/components/Basic/SideMenu'
-import menus from '@/menus'
 
 /* Remove the style element in public/index.html */
 const removeIndexStyle = function () {
@@ -29,9 +24,6 @@ const removeIndexStyle = function () {
 }
 
 export default {
-  components: {
-    SideMenu
-  },
   watch: {
     language () {
       this.handleLocale()
@@ -44,8 +36,7 @@ export default {
   },
   data () {
     return {
-      locale: {},
-      menus
+      locale: {}
     }
   },
   methods: {

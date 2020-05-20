@@ -28,3 +28,9 @@ export default {
   }
 }
 </script>
+
+<style lang="less" scoped>
+.about {
+  margin: 24px 0 0 0;
+}
+</style>

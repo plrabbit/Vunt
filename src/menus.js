@@ -5,20 +5,20 @@ export default [
     key: 1,
     type: 0,
     text: 'Components',
-    icon: 'team',
+    icon: 'home',
     path: '/',
     children: [
       {
         key: 101,
         type: 0,
         text: 'Home',
-        path: '/'
+        path: '/Home'
       },
       {
         key: 102,
         type: 0,
         text: 'About',
-        path: '/about'
+        path: '/About'
       }
     ]
   },
@@ -26,7 +26,7 @@ export default [
     key: 2,
     type: 0,
     text: 'Exception Page',
-    icon: 'deployment-unit',
+    icon: 'file-exclamation',
     path: '/404'
   }
 ]
