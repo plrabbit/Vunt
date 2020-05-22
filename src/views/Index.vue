@@ -10,11 +10,17 @@
 <script>
 import SideMenu from '@/components/Basic/SideMenu'
 import menus from '@/menus'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Index',
   components: {
     SideMenu
+  },
+  computed: {
+    ...mapGetters({
+      language: 'language'
+    })
   },
   data () {
     return {
@@ -24,6 +30,8 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="less" scoped>
+#nav {
+  position: relative;
+}
 </style>

@@ -47,7 +47,7 @@ export default {
     }
   },
   created () {
-    const locale = require(`./locale/${this.language}`)
+    const locale = this.language ? require(`./locale/${this.language}`) : require('./locale/en_US')
     this.config = locale.default
   }
 }
