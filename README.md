@@ -396,7 +396,7 @@ You can find ```configureWebpack``` and ```chainWebpack``` in ```vue.webpack.con
 
 #### Exception Pages(403, 404, 500)
 
-You can find the component in ```src/components/BasicLayout/Exception```. All you have to do is only import it and pass ```type``` prop(String) with 403, 404 or 500, like this:
+You can find the component in ```src/components/Basic/Exception```. All you have to do is only import it and pass ```type``` prop(String) with 403, 404 or 500, like this:
 
 ```vue
 <template>
@@ -414,7 +414,7 @@ export default {
 </script>
 ```
 
-> Besides, you may configure the display text in ```src/components/BasicLayout/Exception/en_US.js```
+> Besides, you may configure the display text in ```src/components/Basic/Exception/en_US.js```
 
 ## License
 
