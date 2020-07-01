@@ -3,6 +3,8 @@ import 'ant-design-vue/es/menu/style/index.less'
 import Icon from 'ant-design-vue/es/icon'
 import 'ant-design-vue/es/tooltip/style/index.less'
 
+import './styles.less'
+
 export default {
   name: 'SideMenu',
   props: {
