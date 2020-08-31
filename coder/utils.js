@@ -42,6 +42,7 @@ exports.readFileList = function (dir) {
   const filesList = []
   const apiSchemasPath = dir
   handler(dir, filesList)
+
   function handler (directory, filesList = []) {
     const files = fs.readdirSync(directory)
     files.forEach(item => {
@@ -55,19 +56,28 @@ exports.readFileList = function (dir) {
     })
     return filesList
   }
+
   return filesList
+}
+
+const mkdirRecursive = function (dirPath) {
+  if (!fs.existsSync(path.dirname(dirPath))) {
+    mkdirRecursive(path.dirname(dirPath))
+  }
+  fs.mkdirSync(dirPath)
 }
 
 exports.writeFile = function (filepath, filename, content) {
   if (!fs.existsSync(filepath)) {
-    fs.mkdirSync(filepath, { recursive: true })
+    mkdirRecursive(filepath)
   }
   const fileDir = path.dirname(path.resolve(filepath, `${filename}`))
   if (!fs.existsSync(fileDir)) {
-    fs.mkdirSync(fileDir, { recursive: true })
+    mkdirRecursive(fileDir)
   }
   fs.writeFileSync(path.resolve(filepath, `${filename}`), content, { encoding: 'utf8' })
 }
+
 exports.beautifyJs = function (content) {
   content = content.replace(/(\r\n|\n)\s*/g, '\n')
     .replace(/\(\n/g, '(')
