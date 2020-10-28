@@ -1,19 +1,35 @@
 <template>
   <div @click="toggleChoosing" class="iconPicker iconPickerBtn">
     <a-icon :type="value" />
-    <transition name="fade">
-      <div v-show="containerChoosingOpened" @click="e => e.stopPropagation()" class="containerChoosing" :class="{ alignLeft: align === 'left', alignRight: align === 'right' }">
-
+      <div @click="e => e.stopPropagation()" :class="{ alignLeft: align === 'left', alignRight: align === 'right', wow: containerChoosingOpened }" class="containerChoosing" id="widget-icon-picker__containerChoosing">
+        <div class="iconWrapper">
+          <span v-for="(icon, index) in collection" :key="index" @click="handleSelectIcon(icon)"
+                class="iconItem" :class="{ selected: icon === state.selectedIcon }">
+            <a-icon :type="icon" />
+          </span>
+        </div>
+        <div class="iconToolbar">
+          <div class="currentIcon">
+            <span>Selected:</span>
+            <a-icon :type="state.selectedIcon" />
+          </div>
+          <div class="buttons">
+            <a-button @click="handleCloseChoosing" size="small">Close</a-button>
+            <a-button type="primary" size="small">Confirm</a-button>
+          </div>
+        </div>
       </div>
-    </transition>
   </div>
 </template>
 
 <script>
 import Vue from 'vue'
-import { Icon } from 'ant-design-vue'
+import { mapGetters } from 'vuex'
+import { Icon, Button } from 'ant-design-vue'
+import { collection } from './dict'
 
 Vue.use(Icon)
+Vue.use(Button)
 
 export default {
   name: 'IconPicker',
@@ -23,43 +39,69 @@ export default {
   props: {
     value: {
       type: String,
-      default: () => ''
+      default: () => '',
+      validator: value => {
+        return collection.indexOf(value) !== -1
+      }
     },
     align: {
       default: () => 'center',
-      validator: function (value) {
+      validator: value => {
         return ['left', 'center', 'right'].indexOf(value) !== -1
       }
     }
   },
+  computed: {
+    ...mapGetters({
+      language: 'language'
+    })
+  },
   data () {
+    const selectedIcon = this.value || ''
     return {
-      containerChoosingOpened: false
+      collection,
+      locale: {},
+      containerChoosingOpened: false,
+      state: {
+        selectedIcon,
+        cacheIcon: selectedIcon
+      }
     }
   },
   methods: {
-    toggleChoosing () {
+    toggleChoosing (e) {
+      e.stopPropagation()
       this.containerChoosingOpened = !this.containerChoosingOpened
+      this.containerChoosingOpened ? window.document.addEventListener('click', this.handleCloseChoosing) : window.document.removeEventListener('click', this.handleCloseChoosing)
+    },
+    handleCloseChoosing () {
+      this.containerChoosingOpened = false
+    },
+    handleSelectIcon (icon) {
+      this.state.selectedIcon = icon
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
+@import '../Base/styles';
+
+@btnPadding: 6px;
+@picker-font-size: 36px;
+
 .fade-enter-active, .fade-leave-active {
-  opacity: 1;
   transition: opacity .5s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
-@btnPadding: 6px;
 
 .iconPickerBtn {
   position: relative;
   padding: @btnPadding;
   line-height: 1;
-  border: 1px #cccccc solid;
+  border: 1px @common-border-color solid;
   border-radius: .1em;
   display: inline-block;
   cursor: pointer;
@@ -68,17 +110,30 @@ export default {
     vertical-align: bottom;
   }
 
+  #widget-icon-picker__containerChoosing {
+    text-align: left;
+    font-size: @picker-font-size !important;
+  }
+
   .containerChoosing {
     position: absolute;
     top: calc(100% + 10px);
     left: 50%;
-    width: 200px;
-    height: 200px;
-    border: 1px #cccccc solid;
+    padding: 12px;
+    background-color: #fff;
+    border: 1px @common-border-color solid;
     border-radius: .1em;
     box-shadow: 0 6px 16px 1px rgba(0, 0, 0, .05);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .25s, visibility .25s;
     transform: translateX(-50%);
     cursor: default;
+
+    &.wow {
+      opacity: 1;
+      visibility: visible;
+    }
 
     &::before, &::after {
       content: '';
@@ -89,12 +144,14 @@ export default {
     }
 
     &::before {
-      border: 10px transparent solid;
-      border-bottom: 10px #cccccc solid;
+      border-left: 10px transparent solid;
+      border-right: 10px transparent solid;
+      border-bottom: 10px @common-border-color solid;
     }
 
     &::after {
-      border: 9px transparent solid;
+      border-left: 9px transparent solid;
+      border-right: 9px transparent solid;
       border-bottom: 9px #ffffff solid;
     }
 
@@ -129,6 +186,55 @@ export default {
         right: calc(.5em - @btnPadding + 1px);
         transform: none;
       }
+    }
+
+    .iconWrapper {
+      width: 488px;
+      height: 180px;
+      border-bottom: 1px @common-border-color solid;
+      overflow: auto;
+      box-sizing: content-box;
+
+      .iconItem {
+        padding: 4px;
+        border: 2px transparent solid;
+        border-radius: @common-border-radius;
+        overflow: hidden;
+        vertical-align: bottom;
+        display: inline-block;
+        cursor: pointer;
+
+        &.selected {
+          border-color: lightcoral;
+        }
+
+        i, svg {
+          vertical-align: bottom;
+        }
+      }
+    }
+  }
+
+  .iconToolbar {
+    padding-top: 12px;
+    font-size: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .currentIcon {
+      span, i {
+        vertical-align: middle;
+      }
+
+      span {
+        margin-right: 6px;
+        font-size: 14px;
+      }
+    }
+
+    button {
+      margin: 0 0 0 12px;
     }
   }
 }
