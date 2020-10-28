@@ -1,7 +1,7 @@
 const app = {
   state: {
     device: 'desktop',
-    language: 'en_US'
+    language: 'enUS'
   },
   mutations: {
     TOGGLE_DEVICE: (state, device) => {

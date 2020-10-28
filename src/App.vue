@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import enUS from 'ant-design-vue/es/locale/en_US'
+import zhCN from 'ant-design-vue/es/locale/zh_CN'
 import { mapGetters } from 'vuex'
 
 /* Remove the style element in public/index.html */
@@ -24,11 +26,6 @@ const removeIndexStyle = function () {
 }
 
 export default {
-  watch: {
-    language () {
-      this.handleLocale()
-    }
-  },
   computed: {
     ...mapGetters({
       language: 'language'
@@ -36,13 +33,15 @@ export default {
   },
   data () {
     return {
-      locale: {}
+      locale: enUS,
+      enUS,
+      zhCN
     }
   },
   methods: {
     handleLocale () {
-      const localeFile = require(`ant-design-vue/es/locale/${this.language}`)
-      this.locale = localeFile.default
+      const locale = this[this.language]
+      if (locale) this.locale = locale
     }
   },
   beforeCreate () {
