@@ -3,7 +3,7 @@
     <h1>This is an about page</h1>
     <a-timer-picker/>
     <div style="margin-top: 24px;">
-      <IconPicker align="center" v-model="currentIcon" />
+      <IconPicker v-model="currentIcon" trigger="click" />
     </div>
   </div>
 </template>
