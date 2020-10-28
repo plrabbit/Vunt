@@ -19,7 +19,7 @@ const user = {
         commit('SET_TOKEN', '')
 
         // Remember user
-        localStorage.setItem('pc___access-token', '')
+        // localStorage.setItem('token', '')
         resolve()
       })
     },
@@ -36,7 +36,7 @@ const user = {
         // Some requests to logout
 
         commit('SET_TOKEN', '')
-        localStorage.removeItem('pc___access-token')
+        // localStorage.removeItem('token')
         resolve()
       })
     }
