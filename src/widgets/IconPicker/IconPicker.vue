@@ -1,25 +1,23 @@
 <template>
   <a-popover v-bind="popoverOptions" v-model="containerChoosingOpened" class="iconPicker iconPickerBtn">
-    <a-icon :type="value" />
+    <a-icon :type="value"/>
     <div slot="content" class="containerChoosing">
-<!--      <div @click="e => e.stopPropagation()" :class="{ alignLeft: align === 'left', alignRight: align === 'right', wow: containerChoosingOpened }" class="containerChoosing" id="widget-icon-picker__containerChoosing">-->
-        <div class="iconWrapper">
+      <div class="iconWrapper">
           <span v-for="(icon, index) in collection" :key="index" @click="handleSelectIcon(icon)"
                 class="iconItem" :class="{ selected: icon === state.selectedIcon }">
-            <a-icon :type="icon" />
+            <a-icon :type="icon"/>
           </span>
+      </div>
+      <div class="iconToolbar">
+        <div class="currentIcon">
+          <span>Selected:</span>
+          <a-icon :type="state.selectedIcon"/>
         </div>
-        <div class="iconToolbar">
-          <div class="currentIcon">
-            <span>Selected:</span>
-            <a-icon :type="state.selectedIcon" />
-          </div>
-          <div class="buttons">
-            <a-button @click="handleCloseChoosing" size="small">Close</a-button>
-            <a-button type="primary" size="small">Confirm</a-button>
-          </div>
+        <div class="buttons">
+          <a-button @click="handleCloseChoosing" size="small">Close</a-button>
+          <a-button @click="changeSelection" type="primary" size="small">Confirm</a-button>
         </div>
-<!--      </div>-->
+      </div>
     </div>
   </a-popover>
 </template>
@@ -77,6 +75,10 @@ export default {
     },
     handleSelectIcon (icon) {
       this.state.selectedIcon = icon
+    },
+    changeSelection () {
+      this.$emit('change', this.state.selectedIcon)
+      this.handleCloseChoosing()
     }
   }
 }
