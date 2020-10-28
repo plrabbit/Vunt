@@ -5,7 +5,6 @@ import {
   ConfigProvider,
   Row,
   Col,
-  Icon,
   Button,
 
   message,
@@ -18,7 +17,6 @@ import {
   ConfigProvider,
   Row,
   Col,
-  Icon,
   Button
 ].forEach(n => {
   Vue.use(n)
