@@ -28,6 +28,12 @@ const configureWebpack = function () {
  * chainWebpack in vue.config.js
  */
 const chainWebpack = function (config) {
+  config
+    .plugin('html')
+    .tap(args => {
+      args[0].title = 'Loading...'
+      return args
+    })
   if (isProduction) {
     sourcesCDN.useCDN && config.plugin('html').tap(args => {
       args[0].cdn = sourcesCDN

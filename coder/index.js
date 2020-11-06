@@ -7,7 +7,7 @@ const apiRender = require('./templates/api')
 const mixinRender = require('./templates/mixin')
 
 /* API_HOST states in public/config.js */
-const PREFIX_HOST_NAME = 'API_HOST'
+const PREFIX_HOST_NAME = 'ApiHost'
 const WRITE_PATH = '/src/base'
 
 console.log('\nGenerating Codes...')
