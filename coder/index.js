@@ -7,7 +7,7 @@ const apiRender = require('./templates/api')
 const mixinRender = require('./templates/mixin')
 
 /* API_HOST states in public/config.js */
-const PREFIX_HOST_NAME = 'ApiHost'
+const PREFIX_HOST_NAME = 'API_HOST'
 const WRITE_PATH = '/src/base'
 
 console.log('\nGenerating Codes...')
@@ -29,6 +29,7 @@ const writePathAbs = path.resolve(__dirname, `..${WRITE_PATH}`)
 if (fs.existsSync(writePathAbs)) {
   fs.removeSync(writePathAbs)
 }
+
 apiCollection.forEach(n => {
   /* Write API */
   writeFile(path.resolve(__dirname, `..${WRITE_PATH}/api`), n.filename, beautifyJs(apiRender({
@@ -38,7 +39,7 @@ apiCollection.forEach(n => {
 
   /* Write Mixins */
   writeFile(path.resolve(__dirname, `..${WRITE_PATH}/mixin`), n.filename, beautifyJs(mixinRender({
-    filename: n.filename.replace(/\.js$/, '')
+    filename: n.filename.replace('.js', '')
   })))
 })
 

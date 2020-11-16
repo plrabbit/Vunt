@@ -85,9 +85,7 @@ export default {
     updateMenu () {
       const currentPath = '0|' + this.$route.path
       let parentPath = currentPath.match(/(\/\w+)(?:\/.+)*$/)
-      if (parentPath) {
-        parentPath = parentPath[1]
-      }
+      if (parentPath) parentPath = parentPath[1]
       this.selectedKeys = [currentPath]
       const openKeys = []
       if (this.mode === 'inline') {

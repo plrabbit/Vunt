@@ -4,7 +4,9 @@ const utils = require('./utils')
 module.exports = _.template(`
 import axios from '@/utils/axios'
 
-import { <%= PREFIX_HOST_NAME %> } from '@/config'
+<% let HOST_NAME = '' %>
+<% if (typeof apiList[0] === 'string') { %><% HOST_NAME = apiList.shift() %><% } else {%><% HOST_NAME = PREFIX_HOST_NAME %><% } %>
+import { <%= HOST_NAME %> } from '@/config'
 
 <% const funcNameList = {} %>
 <% let hasRest = false %>
@@ -55,12 +57,12 @@ import { <%= PREFIX_HOST_NAME %> } from '@/config'
           <% } %>
         <% } %>
       <% } %>
-      url: <%= PREFIX_HOST_NAME %> + <% if (pathParams.length) { %>\`<%= arrangedPath %>\`<% } else { %>'<%= arrangedPath %>'<% } %>
+      url: <%= HOST_NAME %> + <% if (pathParams.length) { %>\`<%= arrangedPath %>\`<% } else { %>'<%= arrangedPath %>'<% } %>
     }
     <% if (api.rest) { %>
     config = injectData(config, data)
     <% } %>
-    <%= api.name %>.url = <%= PREFIX_HOST_NAME %> + <% if (pathParams.length) { %>\`<%= arrangedPath %>\`<% } else { %>'<%= arrangedPath %>'<% } %>
+    <%= api.name %>.url = <%= HOST_NAME %> + <% if (pathParams.length) { %>\`<%= arrangedPath %>\`<% } else { %>'<%= arrangedPath %>'<% } %>
     return axios(config)
   }
 <% }) %>
