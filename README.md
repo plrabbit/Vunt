@@ -362,6 +362,35 @@ import { blogArticles } from '@/base/api/base-features'
 blogArticles('get', { userId: '7008960' }, data)
 ```
 
+#### Different host (Update 11/16/2020):
+
+You may add a string in index 0 of the schema array, like this:
+```js
+module.exports = [
+  'OTHER_HOST',
+  {
+    // ...
+  }
+]
+```
+
+Then add this host to ```public/config.js``` and ```src/config.js```.
+```js
+// public/config.js
+(function (global) {
+  global.__config__ = {
+    // Public API Addr. DO NOT rename it.
+    API_HOST: 'http://127.0.0.1:8088',
+    OTHER_HOST: 'http://127.0.0.1:8089' // Your host
+    // ...
+  }
+})(window)
+
+// src/config.js
+export const OTHER_HOST = staticConfig.OTHER_HOST || 'http://127.0.0.1:8000'
+```
+
+
 ### Cancelling request
 
 > Vunt offers two global functions for cancelling request, you can use them directly in your Vue components.
