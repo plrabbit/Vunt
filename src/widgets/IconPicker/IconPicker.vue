@@ -1,12 +1,13 @@
 <template>
   <a-popover v-bind="popoverOptions" v-model="containerChoosingOpened" class="iconPicker iconPickerBtn">
-    <a-icon :type="value"/>
+    <a-icon :type="value" v-if="value"/>
+    <span class="icon-null" v-else></span>
     <div slot="content" class="containerChoosing">
       <div class="iconWrapper">
-          <span v-for="(icon, index) in collection" :key="index" @click="handleSelectIcon(icon)"
-                class="iconItem" :class="{ selected: icon === state.selectedIcon }">
-            <a-icon :type="icon"/>
-          </span>
+        <span v-for="(icon, index) in collection" :key="index" @click="handleSelectIcon(icon)"
+              class="iconItem" :class="{ selected: icon === state.selectedIcon }">
+          <a-icon :type="icon"/>
+        </span>
       </div>
       <div class="iconToolbar">
         <div class="currentIcon">
@@ -43,7 +44,7 @@ export default {
       type: String,
       default: () => '',
       validator: value => {
-        return collection.indexOf(value) !== -1
+        return collection.indexOf(value) !== -1 || value === ''
       }
     }
   },
@@ -89,6 +90,26 @@ export default {
 
 @btnPadding: 6px;
 @picker-font-size: 24px;
+
+.icon-null {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: @common-border-color;
+    transform: rotate(135deg);
+  }
+}
 
 .iconPickerBtn {
   position: relative;
